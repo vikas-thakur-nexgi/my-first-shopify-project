@@ -426,7 +426,7 @@
               <h3 class="nip-name">{{ product.title | escape }}</h3>
             </a>
 
-            {% if section.settings.show_rating and rating != blank %}
+            {% comment %} {% if section.settings.show_rating and rating != blank %}
               <div class="nip-rating" aria-label="Rated {{ rating.rating }} out of {{ rating.scale_max }}">
                 <span class="nip-stars" aria-hidden="true">
                   {% for star in (1..5) %}
@@ -450,7 +450,7 @@
                   </span>
                 {% endif %}
               </div>
-            {% endif %}
+            {% endif %} {% endcomment %}
 
             <div class="nip-price">
               {% if compare_price != blank and compare_price > current_price %}
