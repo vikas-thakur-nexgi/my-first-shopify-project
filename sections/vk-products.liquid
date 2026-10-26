@@ -30,7 +30,7 @@
 
     background: var(--nip-bg);
     color: var(--nip-text);
-    font-family: 'DM Sans', Arial, sans-serif;
+    {% comment %} font-family: 'DM Sans', Arial, sans-serif; {% endcomment %}
     padding: {{ section.settings.pad_top }}px 5% {{ section.settings.pad_bottom }}px;
     box-sizing: border-box;
   }
@@ -47,7 +47,7 @@
   }
 
   #nip-{{ section.id }} .nip-title {
-    font-family: 'Playfair Display', Georgia, serif;
+    {% comment %} font-family: 'Playfair Display', Georgia, serif; {% endcomment %}
     font-size: clamp(24px, 3.4vw, 38px);
     font-weight: 500;
     line-height: 1.25;
