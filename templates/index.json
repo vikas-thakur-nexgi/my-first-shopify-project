@@ -2521,10 +2521,10 @@
         "slide_height": "medium",
         "content_position": "on-media",
         "background_color": "",
-        "icons_style": "arrows_large",
+        "icons_style": "arrow",
         "icons_shape": "circle",
         "slideshow_controls_style": "none",
-        "autoplay": true,
+        "autoplay": false,
         "autoplay_speed": 4,
         "padding-block-start": 0,
         "padding-block-end": 0
