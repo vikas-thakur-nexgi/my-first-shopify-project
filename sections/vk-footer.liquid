@@ -1,0 +1,328 @@
+
+<footer id="ww-footer-{{ section.id }}" class="ww-footer">
+  <div class="ww-footer__container">
+
+    <!-- Column 1: Shop -->
+    <div class="ww-footer__column">
+      <h3>{{ section.settings.shop_heading | escape }}</h3>
+      {% if section.settings.shop_menu != blank %}
+        <ul>
+          {% for link in section.settings.shop_menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- Column 2: Manage -->
+    <div class="ww-footer__column">
+      <h3>{{ section.settings.manage_heading | escape }}</h3>
+      {% if section.settings.manage_menu != blank %}
+        <ul>
+          {% for link in section.settings.manage_menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- Column 3: Information -->
+    <div class="ww-footer__column">
+      <h3>{{ section.settings.info_heading | escape }}</h3>
+      {% if section.settings.info_menu != blank %}
+        <ul>
+          {% for link in section.settings.info_menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- Column 4: Contact Us -->
+    <div class="ww-footer__column ww-footer__contact">
+      <h3>{{ section.settings.contact_heading | escape }}</h3>
+
+      <p class="ww-footer__address">
+        <strong>{{ section.settings.company_name | escape }}</strong>
+        {% if section.settings.company_address != blank %}
+          <br>{{ section.settings.company_address | escape | newline_to_br }}
+        {% endif %}
+      </p>
+
+      {% if section.settings.gstin != blank %}
+        <p>GSTIN: {{ section.settings.gstin | escape }}</p>
+      {% endif %}
+
+      <div class="ww-footer__support">
+        <h3>{{ section.settings.support_heading | escape }}</h3>
+        {% if section.settings.phone != blank %}
+          <p>Call / WhatsApp:
+            <a href="https://wa.me/{{ section.settings.phone | remove: '+' | remove: ' ' | remove: '-' }}">
+              {{ section.settings.phone | escape }}
+            </a>
+          </p>
+        {% endif %}
+
+        {% if section.settings.email != blank %}
+          <p>Email:
+            <a href="mailto:{{ section.settings.email | escape }}">
+              {{ section.settings.email | escape }}
+            </a>
+          </p>
+        {% endif %}
+      </div>
+
+      <div class="ww-footer__hours">
+        <h3>{{ section.settings.hours_heading | escape }}</h3>
+        <p>{{ section.settings.support_days | escape }}</p>
+        <p>{{ section.settings.support_hours | escape }}</p>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  #ww-footer-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: 68px 0 60px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  #ww-footer-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #ww-footer-{{ section.id }} .ww-footer__container {
+    width: calc(100% - 90px);
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 55px;
+    border-bottom: 1px solid {{ section.settings.border_color }};
+  }
+
+  #ww-footer-{{ section.id }} h3 {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: inherit;
+  }
+
+  #ww-footer-{{ section.id }} ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #ww-footer-{{ section.id }} li {
+    margin: 0 0 5px;
+    padding: 0;
+  }
+
+  #ww-footer-{{ section.id }} a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  #ww-footer-{{ section.id }} a:hover {
+    opacity: 0.65;
+  }
+
+  #ww-footer-{{ section.id }} p {
+    margin: 0 0 5px;
+  }
+
+  #ww-footer-{{ section.id }} .ww-footer__address {
+    margin-bottom: 24px;
+  }
+
+  #ww-footer-{{ section.id }} .ww-footer__support {
+    margin-top: 24px;
+  }
+
+  #ww-footer-{{ section.id }} .ww-footer__hours {
+    margin-top: 24px;
+  }
+
+  #ww-footer-{{ section.id }} .ww-footer__support h3,
+  #ww-footer-{{ section.id }} .ww-footer__hours h3 {
+    margin-bottom: 2px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #ww-footer-{{ section.id }} {
+      padding: 40px 0 30px;
+    }
+
+    #ww-footer-{{ section.id }} .ww-footer__container {
+      width: calc(100% - 40px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 20px;
+      padding-bottom: 30px;
+    }
+
+    #ww-footer-{{ section.id }} .ww-footer__contact {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    #ww-footer-{{ section.id }} .ww-footer__container {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    #ww-footer-{{ section.id }} .ww-footer__contact {
+      grid-column: auto;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Vk Custom Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Shop column"
+    },
+    {
+      "type": "text",
+      "id": "shop_heading",
+      "label": "Heading",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "shop_menu",
+      "label": "Shop menu"
+    },
+    {
+      "type": "header",
+      "content": "Manage column"
+    },
+    {
+      "type": "text",
+      "id": "manage_heading",
+      "label": "Heading",
+      "default": "Manage"
+    },
+    {
+      "type": "link_list",
+      "id": "manage_menu",
+      "label": "Manage menu"
+    },
+    {
+      "type": "header",
+      "content": "Information column"
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "label": "Heading",
+      "default": "Information's"
+    },
+    {
+      "type": "link_list",
+      "id": "info_menu",
+      "label": "Information menu"
+    },
+    {
+      "type": "header",
+      "content": "Contact details"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company name",
+      "default": "Your Company Name"
+    },
+    {
+      "type": "textarea",
+      "id": "company_address",
+      "label": "Company address",
+      "default": "Enter your business address"
+    },
+    {
+      "type": "text",
+      "id": "gstin",
+      "label": "GSTIN"
+    },
+    {
+      "type": "text",
+      "id": "support_heading",
+      "label": "Customer support heading",
+      "default": "Customer Support"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone / WhatsApp number"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Support email",
+      "default": "care@example.com"
+    },
+    {
+      "type": "text",
+      "id": "hours_heading",
+      "label": "Support hours heading",
+      "default": "Support Hours"
+    },
+    {
+      "type": "text",
+      "id": "support_days",
+      "label": "Support days",
+      "default": "Monday to Saturday"
+    },
+    {
+      "type": "text",
+      "id": "support_hours",
+      "label": "Support timings",
+      "default": "11 AM – 5 PM"
+    },
+    {
+      "type": "header",
+      "content": "Footer colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bottom border",
+      "default": "#D9D4CF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vk Custom Footer"
+    }
+  ]
+}
+{% endschema %}
