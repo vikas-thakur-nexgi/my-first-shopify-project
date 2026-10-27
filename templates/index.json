@@ -1703,6 +1703,20 @@
         "hover_mode": "swap",
         "hover_scale": 106
       }
+    },
+    "vk_image_slider_A78Qme": {
+      "type": "vk-image-slider",
+      "name": "WW Image Slider",
+      "settings": {
+        "slide_1_image": "shopify://shop_images/Signature_Twill_Shirts_jpg.webp",
+        "slide_2_image": "shopify://shop_images/Cotton_Sateen_Shirts_jpg.webp",
+        "slide_3_image": "shopify://shop_images/Double_Breasted_suit_set_jpg.webp",
+        "slide_4_image": "shopify://shop_images/Blazers_jpg.webp",
+        "slider_height": 500,
+        "mobile_slider_height": 400,
+        "autoplay": true,
+        "autoplay_speed": 4
+      }
     }
   },
   "order": [
@@ -1719,6 +1733,7 @@
     "vk_sale_banner_kndxpC",
     "vk_products_m9Whk9",
     "vk_countdown_banner_4yha6f",
-    "vk_products_aHNEiX"
+    "vk_products_aHNEiX",
+    "vk_image_slider_A78Qme"
   ]
 }
