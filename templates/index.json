@@ -1337,7 +1337,7 @@
         "slide_2_image": "shopify://shop_images/Cotton_Sateen_Shirts_jpg.webp",
         "slide_3_image": "shopify://shop_images/Double_Breasted_suit_set_jpg.webp",
         "slide_4_image": "shopify://shop_images/Blazers_jpg.webp",
-        "slider_height": 500,
+        "slider_height": 600,
         "mobile_slider_height": 400,
         "autoplay": true,
         "autoplay_speed": 4
