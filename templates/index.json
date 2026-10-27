@@ -505,7 +505,7 @@
         "text_color": "#111111",
         "sep_color": "#111111",
         "weight": "400",
-        "font_size": 22,
+        "font_size": 20,
         "font_size_tablet": 18,
         "font_size_mobile": 15,
         "gap": 40,
