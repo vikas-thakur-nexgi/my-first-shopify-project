@@ -2170,7 +2170,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>New arrivals</h3>",
+                "text": "<h3>CEO Collection</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -2291,7 +2291,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>New arrivals</h3>",
+                "text": "<h3>Ash Smart</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -2412,7 +2412,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>New arrivals</h3>",
+                "text": "<h3>Leadership</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
