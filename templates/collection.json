@@ -9,15 +9,31 @@
  */
 {
   "sections": {
+    "vk_breadcrumb_CfndBk": {
+      "type": "vk-breadcrumb",
+      "name": "vk Breadcrumb",
+      "settings": {
+        "show_breadcrumbs": true,
+        "show_home": true,
+        "home_label": "Home",
+        "search_label": "Search results",
+        "collections_label": "All collections",
+        "separator": "›",
+        "enable_schema": true,
+        "full_width": false,
+        "font_size": 13,
+        "mobile_font_size": 12,
+        "text_color": "#777777",
+        "link_color": "#555555",
+        "current_color": "#111111",
+        "background_color": "#FFFFFF",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section": {
       "type": "section",
       "blocks": {
-        "breadcrumb_C8twAm": {
-          "type": "breadcrumb",
-          "name": "Breadcrumb",
-          "settings": {},
-          "blocks": {}
-        },
         "text_tqQTNE": {
           "type": "text",
           "name": "t:names.title",
@@ -46,7 +62,6 @@
         }
       },
       "block_order": [
-        "breadcrumb_C8twAm",
         "text_tqQTNE"
       ],
       "name": "t:names.heading",
@@ -212,6 +227,7 @@
     }
   },
   "order": [
+    "vk_breadcrumb_CfndBk",
     "section",
     "main"
   ]
