@@ -450,6 +450,69 @@
         "padding-block-end": 0
       }
     },
+    "vk_offer_marquee_7zhdbV": {
+      "type": "vk-offer-marquee",
+      "blocks": {
+        "text_FcqYn4": {
+          "type": "text",
+          "settings": {
+            "text": "Easy returns within 14 days",
+            "link": "",
+            "new_tab": false
+          }
+        },
+        "text_nMYQLp": {
+          "type": "text",
+          "settings": {
+            "text": "Free shipping on orders over $299",
+            "link": "",
+            "new_tab": false
+          }
+        },
+        "text_enhabW": {
+          "type": "text",
+          "settings": {
+            "text": "Lowest Price Guarantee",
+            "link": "",
+            "new_tab": false
+          }
+        },
+        "text_mYBBmq": {
+          "type": "text",
+          "settings": {
+            "text": "Longest Warranties",
+            "link": "",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "text_FcqYn4",
+        "text_nMYQLp",
+        "text_enhabW",
+        "text_mYBBmq"
+      ],
+      "name": "Vk offer Marquee",
+      "settings": {
+        "accessibility_label": "Store announcements",
+        "speed": 30,
+        "direction": "left",
+        "pause": true,
+        "repeat": 2,
+        "separator": "star",
+        "custom_sep": "|",
+        "bg": "#fff1e2",
+        "text_color": "#111111",
+        "sep_color": "#111111",
+        "weight": "400",
+        "font_size": 22,
+        "font_size_tablet": 18,
+        "font_size_mobile": 15,
+        "gap": 40,
+        "pad_y": 18,
+        "border": false
+      }
+    },
     "collection_list_YpLkfA": {
       "type": "collection-list",
       "blocks": {
@@ -641,69 +704,6 @@
         "background_color": "",
         "padding-block-start": 48,
         "padding-block-end": 48
-      }
-    },
-    "vk_offer_marquee_7zhdbV": {
-      "type": "vk-offer-marquee",
-      "blocks": {
-        "text_FcqYn4": {
-          "type": "text",
-          "settings": {
-            "text": "Easy returns within 14 days",
-            "link": "",
-            "new_tab": false
-          }
-        },
-        "text_nMYQLp": {
-          "type": "text",
-          "settings": {
-            "text": "Free shipping on orders over $299",
-            "link": "",
-            "new_tab": false
-          }
-        },
-        "text_enhabW": {
-          "type": "text",
-          "settings": {
-            "text": "Lowest Price Guarantee",
-            "link": "",
-            "new_tab": false
-          }
-        },
-        "text_mYBBmq": {
-          "type": "text",
-          "settings": {
-            "text": "Longest Warranties",
-            "link": "",
-            "new_tab": false
-          }
-        }
-      },
-      "block_order": [
-        "text_FcqYn4",
-        "text_nMYQLp",
-        "text_enhabW",
-        "text_mYBBmq"
-      ],
-      "name": "Vk offer Marquee",
-      "settings": {
-        "accessibility_label": "Store announcements",
-        "speed": 30,
-        "direction": "left",
-        "pause": true,
-        "repeat": 2,
-        "separator": "star",
-        "custom_sep": "|",
-        "bg": "#fff1e2",
-        "text_color": "#111111",
-        "sep_color": "#111111",
-        "weight": "400",
-        "font_size": 22,
-        "font_size_tablet": 18,
-        "font_size_mobile": 15,
-        "gap": 40,
-        "pad_y": 18,
-        "border": false
       }
     },
     "vk_hero_banner_section_kynWnq": {
@@ -1307,8 +1307,8 @@
   },
   "order": [
     "slideshow_3b9Fkz",
-    "collection_list_YpLkfA",
     "vk_offer_marquee_7zhdbV",
+    "collection_list_YpLkfA",
     "vk_hero_banner_section_kynWnq",
     "vk_room_coll_section_PBn38W",
     "hero_JcgimA",
