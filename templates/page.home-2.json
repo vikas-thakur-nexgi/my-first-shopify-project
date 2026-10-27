@@ -1673,7 +1673,7 @@
               "settings": {
                 "show_sale_price_first": true,
                 "show_installments": true,
-                "show_tax_info": true,
+                "show_tax_info": false,
                 "type_preset": "h5",
                 "width": "100%",
                 "alignment": "center",
