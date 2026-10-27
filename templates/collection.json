@@ -12,6 +12,12 @@
     "section": {
       "type": "section",
       "blocks": {
+        "breadcrumb_C8twAm": {
+          "type": "breadcrumb",
+          "name": "Breadcrumb",
+          "settings": {},
+          "blocks": {}
+        },
         "text_tqQTNE": {
           "type": "text",
           "name": "t:names.title",
@@ -40,6 +46,7 @@
         }
       },
       "block_order": [
+        "breadcrumb_C8twAm",
         "text_tqQTNE"
       ],
       "name": "t:names.heading",
