@@ -1331,16 +1331,46 @@
     },
     "vk_image_slider_A78Qme": {
       "type": "vk-image-slider",
+      "blocks": {
+        "slide_gbAz97": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/Signature_Twill_Shirts_jpg.webp"
+          }
+        },
+        "slide_dBiAFR": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/Cotton_Sateen_Shirts_jpg.webp"
+          }
+        },
+        "slide_dYC7zz": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/Double_Breasted_suit_set_jpg.webp"
+          }
+        },
+        "slide_FgghPL": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/Blazers_jpg.webp"
+          }
+        }
+      },
+      "block_order": [
+        "slide_gbAz97",
+        "slide_dBiAFR",
+        "slide_dYC7zz",
+        "slide_FgghPL"
+      ],
       "name": "WW Image Slider",
       "settings": {
-        "slide_1_image": "shopify://shop_images/Signature_Twill_Shirts_jpg.webp",
-        "slide_2_image": "shopify://shop_images/Cotton_Sateen_Shirts_jpg.webp",
-        "slide_3_image": "shopify://shop_images/Double_Breasted_suit_set_jpg.webp",
-        "slide_4_image": "shopify://shop_images/Blazers_jpg.webp",
         "slider_height": 600,
         "mobile_slider_height": 400,
+        "image_fit": "cover",
         "autoplay": true,
-        "autoplay_speed": 4
+        "autoplay_speed": 4,
+        "show_pagination": true
       }
     },
     "collection_list_6hG3Pd": {
