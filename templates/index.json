@@ -2522,7 +2522,7 @@
         "content_position": "on-media",
         "background_color": "",
         "icons_style": "arrows_large",
-        "icons_shape": "none",
+        "icons_shape": "circle",
         "slideshow_controls_style": "none",
         "autoplay": true,
         "autoplay_speed": 4,
