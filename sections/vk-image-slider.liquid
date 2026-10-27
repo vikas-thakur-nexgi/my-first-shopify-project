@@ -1,38 +1,35 @@
-
-{{ 'https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css' | stylesheet_tag }}
-
 <div id="ww-image-slider-{{ section.id }}" class="ww-image-slider">
   <div class="swiper ww-swiper">
     <div class="swiper-wrapper">
-
-      {% for i in (1..4) %}
-        {% assign image_key = 'slide_' | append: i | append: '_image' %}
-        {% assign slide_image = section.settings[image_key] %}
-
-        <div class="swiper-slide ww-slide">
-          {% if slide_image != blank %}
+      {% for block in section.blocks %}
+        <div
+          class="swiper-slide ww-slide"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.slide_image != blank %}
             {{
-              slide_image
+              block.settings.slide_image
               | image_url: width: 2000
               | image_tag:
                 loading: 'lazy',
                 widths: '375, 550, 750, 1100, 1500, 2000',
                 sizes: '100vw',
-                class: 'ww-slide-image',
-                alt: slide_image.alt
+                class: 'ww-slide-image'
             }}
+
           {% else %}
             <div class="ww-slide-placeholder">
-              <span>Slide {{ i }}</span>
-              <p>Select Slide {{ i }} image in the Theme Editor</p>
+              <span>Slide {{ forloop.index }}</span>
+              <p>Select an image in the Theme Editor</p>
             </div>
           {% endif %}
         </div>
       {% endfor %}
-
     </div>
 
-    {% comment %} <div class="swiper-pagination"></div> {% endcomment %}
+    {% if section.settings.show_pagination %}
+      <div class="swiper-pagination"></div>
+    {% endif %}
   </div>
 </div>
 
@@ -40,6 +37,7 @@
   #ww-image-slider-{{ section.id }} {
     width: 100%;
     overflow: hidden;
+    position: relative;
   }
 
   #ww-image-slider-{{ section.id }} .ww-swiper {
@@ -59,7 +57,8 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: center;
   }
 
   #ww-image-slider-{{ section.id }} .ww-slide-placeholder {
@@ -72,11 +71,23 @@
     background: #e8e8e8;
     color: #333;
     text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  #ww-image-slider-{{ section.id }} .ww-slide-placeholder span {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  #ww-image-slider-{{ section.id }} .ww-slide-placeholder p {
+    font-size: 14px;
   }
 
   #ww-image-slider-{{ section.id }} .swiper-pagination {
     right: 20px;
     left: auto;
+    width: auto;
   }
 
   #ww-image-slider-{{ section.id }} .swiper-pagination-bullet {
@@ -96,46 +107,107 @@
   }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"></script>
-
 <script>
-  (() => {
-    const sliderId = 'ww-image-slider-{{ section.id }}';
+  (function () {
+    var sliderId = 'ww-image-slider-{{ section.id }}';
+    var swiperUrl = 'https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js';
+    var swiperCssUrl = 'https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css';
+
+    function loadStylesheet() {
+      if (document.querySelector('link[href="' + swiperCssUrl + '"]')) return;
+
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = swiperCssUrl;
+      document.head.appendChild(link);
+    }
 
     function initWWSlider() {
-      const container = document.getElementById(sliderId);
+      var container = document.getElementById(sliderId);
 
-      if (!container || typeof Swiper === 'undefined') return;
+      if (!container) return;
 
       if (container.swiper) {
         container.swiper.destroy(true, true);
       }
 
-      new Swiper(container.querySelector('.ww-swiper'), {
+      if (typeof Swiper === 'undefined') {
+        if (!window.wwSwiperLoading) {
+          window.wwSwiperLoading = true;
+
+          var script = document.createElement('script');
+          script.src = swiperUrl;
+          script.onload = function () {
+            window.wwSwiperLoading = false;
+            initWWSlider();
+          };
+          script.onerror = function () {
+            window.wwSwiperLoading = false;
+            console.error('Swiper could not be loaded.');
+          };
+
+          document.head.appendChild(script);
+        } else {
+          var waitForSwiper = setInterval(function () {
+            if (typeof Swiper !== 'undefined') {
+              clearInterval(waitForSwiper);
+              initWWSlider();
+            }
+          }, 100);
+
+          setTimeout(function () {
+            clearInterval(waitForSwiper);
+          }, 10000);
+        }
+
+        return;
+      }
+
+      var swiperElement = container.querySelector('.ww-swiper');
+      if (!swiperElement) return;
+
+      var slideCount = swiperElement.querySelectorAll('.swiper-slide').length;
+
+      if (slideCount === 0) return;
+
+      var paginationElement = container.querySelector('.swiper-pagination');
+
+      var slider = new Swiper(swiperElement, {
         direction: 'vertical',
         slidesPerView: 1,
         spaceBetween: 0,
-        loop: true,
+
+        loop: false,
+        rewind: false,
         speed: 700,
 
+        allowTouchMove: true,
+        mousewheel: true,
+
+        keyboard: {
+          enabled: true
+        },
+
+        {% if section.settings.show_pagination %}
         pagination: {
-          el: container.querySelector('.swiper-pagination'),
+          el: paginationElement,
           clickable: true
         },
+        {% endif %}
 
         {% if section.settings.autoplay %}
         autoplay: {
           delay: {{ section.settings.autoplay_speed | times: 1000 }},
-          disableOnInteraction: false
-        },
-        {% endif %}
-
-        mousewheel: true,
-        keyboard: {
-          enabled: true
+          disableOnInteraction: false,
+          stopOnLastSlide: true
         }
+        {% endif %}
       });
+
+      container.swiper = slider;
     }
+
+    loadStylesheet();
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initWWSlider, {
@@ -145,9 +217,19 @@
       initWWSlider();
     }
 
-    document.addEventListener('shopify:section:load', function(event) {
+    document.addEventListener('shopify:section:load', function (event) {
       if (event.detail.sectionId === '{{ section.id }}') {
         initWWSlider();
+      }
+    });
+
+    document.addEventListener('shopify:section:unload', function (event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        var container = document.getElementById(sliderId);
+
+        if (container && container.swiper) {
+          container.swiper.destroy(true, true);
+        }
       }
     });
   })();
@@ -156,31 +238,8 @@
 {% schema %}
 {
   "name": "WW Image Slider",
+  "max_blocks": 20,
   "settings": [
-    {
-      "type": "header",
-      "content": "Slide Images"
-    },
-    {
-      "type": "image_picker",
-      "id": "slide_1_image",
-      "label": "Slide 1 Main Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "slide_2_image",
-      "label": "Slide 2 Main Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "slide_3_image",
-      "label": "Slide 3 Main Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "slide_4_image",
-      "label": "Slide 4 Main Image"
-    },
     {
       "type": "header",
       "content": "Slider Settings"
@@ -206,6 +265,22 @@
       "unit": "px"
     },
     {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image Fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "cover"
+    },
+    {
       "type": "checkbox",
       "id": "autoplay",
       "label": "Enable Autoplay",
@@ -220,11 +295,44 @@
       "step": 1,
       "default": 4,
       "unit": "sec"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show Pagination Dots",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Image Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Main Image"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "WW Image Slider"
+      "name": "WW Image Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
     }
   ]
 }
