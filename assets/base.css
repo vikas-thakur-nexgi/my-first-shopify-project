@@ -612,7 +612,7 @@ body,
   input.paragraph.paragraph:not([type]),
   textarea.paragraph.paragraph,
   select.paragraph.paragraph {
-    font-size: max(14px, var(--font-paragraph--size));
+    font-size: max(1rem, var(--font-paragraph--size));
   }
 }
 
