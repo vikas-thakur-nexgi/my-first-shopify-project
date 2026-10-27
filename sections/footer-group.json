@@ -11,31 +11,6 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
-    "vk_footer_aRPjAk": {
-      "type": "vk-footer",
-      "name": "Vk Custom Footer",
-      "settings": {
-        "shop_heading": "Shop",
-        "shop_menu": "shop",
-        "manage_heading": "Manage",
-        "manage_menu": "manage",
-        "info_heading": "Information's",
-        "info_menu": "information",
-        "contact_heading": "Contact Us",
-        "company_name": "Your Company Name",
-        "company_address": "Enter your business address",
-        "gstin": "",
-        "support_heading": "Customer Support",
-        "phone": "",
-        "email": "care@example.com",
-        "hours_heading": "Support Hours",
-        "support_days": "Monday to Saturday",
-        "support_hours": "11 AM – 5 PM",
-        "background_color": "#ffffff",
-        "text_color": "#111111",
-        "border_color": "#d9d4cf"
-      }
-    },
     "footer_m9NzUG": {
       "type": "footer",
       "blocks": {
@@ -181,6 +156,31 @@
         "padding-block-end": 30
       }
     },
+    "vk_footer_aRPjAk": {
+      "type": "vk-footer",
+      "name": "Vk Custom Footer",
+      "settings": {
+        "shop_heading": "Shop",
+        "shop_menu": "shop",
+        "manage_heading": "Manage",
+        "manage_menu": "manage",
+        "info_heading": "Information's",
+        "info_menu": "information",
+        "contact_heading": "Contact Us",
+        "company_name": "The Civilized Society",
+        "company_address": "Enter your business address",
+        "gstin": "",
+        "support_heading": "Customer Support",
+        "phone": "",
+        "email": "care@example.com",
+        "hours_heading": "Support Hours",
+        "support_days": "Monday to Saturday",
+        "support_hours": "11 AM – 5 PM",
+        "background_color": "#ffffff",
+        "text_color": "#111111",
+        "border_color": "#d9d4cf"
+      }
+    },
     "footer_utilities_jLGE8U": {
       "type": "footer-utilities",
       "blocks": {
@@ -242,8 +242,8 @@
     }
   },
   "order": [
-    "vk_footer_aRPjAk",
     "footer_m9NzUG",
+    "vk_footer_aRPjAk",
     "footer_utilities_jLGE8U"
   ]
 }
