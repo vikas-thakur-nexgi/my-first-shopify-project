@@ -16,9 +16,9 @@
       "name": "Vk Custom Footer",
       "settings": {
         "shop_heading": "Shop",
-        "shop_menu": "",
+        "shop_menu": "shop",
         "manage_heading": "Manage",
-        "manage_menu": "",
+        "manage_menu": "manage",
         "info_heading": "Information's",
         "info_menu": "",
         "contact_heading": "Contact Us",
@@ -31,9 +31,9 @@
         "hours_heading": "Support Hours",
         "support_days": "Monday to Saturday",
         "support_hours": "11 AM – 5 PM",
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "text_color": "#111111",
-        "border_color": "#D9D4CF"
+        "border_color": "#d9d4cf"
       }
     },
     "footer_m9NzUG": {
