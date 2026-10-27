@@ -1127,7 +1127,7 @@
         "gap": 12,
         "background_color": "",
         "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-end": 0
       }
     },
     "product_list_HKTMPX": {
@@ -1326,7 +1326,7 @@
         "gap": 28,
         "background_color": "",
         "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-end": 0
       }
     },
     "vk_hero_banner_section_kynWnq": {
