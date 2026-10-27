@@ -2139,20 +2139,21 @@
         "hover_scale": 106
       }
     },
-    "slideshow_KLdPrh": {
+    "slideshow_kaF3QN": {
       "type": "slideshow",
       "blocks": {
-        "slide_V7Gjxt": {
+        "slide_tYgKf4": {
           "type": "_slide",
           "settings": {
             "media_type_1": "video",
+            "video_1": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "flex-end",
             "gap": 12,
             "background_color": "",
             "toggle_overlay": false,
@@ -2165,7 +2166,7 @@
             "padding-inline-end": 48
           },
           "blocks": {
-            "text_eRr4TQ": {
+            "text_4YzGJQ": {
               "type": "text",
               "name": "t:names.heading",
               "settings": {
@@ -2180,7 +2181,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "text_color": "",
+                "text_color": "{{ settings.color_palette.background }}",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -2191,8 +2192,9 @@
               },
               "blocks": {}
             },
-            "text_QH3Ymx": {
+            "text_igbqk7": {
               "type": "text",
+              "disabled": true,
               "settings": {
                 "text": "<p>Introducing our latest products, made especially for the season. Shop your favorites before they're gone!</p>",
                 "width": "fit-content",
@@ -2216,8 +2218,27 @@
               },
               "blocks": {}
             },
-            "button_BGRxrb": {
+            "button_3WgKNC": {
               "type": "button",
+              "settings": {
+                "label": "Shop Now",
+                "link": "shopify://collections/all",
+                "open_in_new_tab": false,
+                "style_class": "button-unstyled",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "{{ settings.color_palette.background }}",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            },
+            "button_QxN6pK": {
+              "type": "button",
+              "disabled": true,
               "settings": {
                 "label": "Shop now",
                 "link": "shopify://collections/all",
@@ -2236,12 +2257,13 @@
             }
           },
           "block_order": [
-            "text_eRr4TQ",
-            "text_QH3Ymx",
-            "button_BGRxrb"
+            "text_4YzGJQ",
+            "text_igbqk7",
+            "button_3WgKNC",
+            "button_QxN6pK"
           ]
         },
-        "slide_dfyRpK": {
+        "slide_GL9RYP": {
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
@@ -2264,7 +2286,7 @@
             "padding-inline-end": 48
           },
           "blocks": {
-            "text_ccRyFi": {
+            "text_y7WU7Q": {
               "type": "text",
               "name": "t:names.heading",
               "settings": {
@@ -2290,7 +2312,7 @@
               },
               "blocks": {}
             },
-            "text_FNLE7N": {
+            "text_8dcpxX": {
               "type": "text",
               "settings": {
                 "text": "<p>Discover the bestsellers that have captured the hearts of our customers with their perfect blend of functionality and style.</p>",
@@ -2315,7 +2337,7 @@
               },
               "blocks": {}
             },
-            "button_xYGBK3": {
+            "button_qnc4my": {
               "type": "button",
               "settings": {
                 "label": "Shop now",
@@ -2335,30 +2357,30 @@
             }
           },
           "block_order": [
-            "text_ccRyFi",
-            "text_FNLE7N",
-            "button_xYGBK3"
+            "text_y7WU7Q",
+            "text_8dcpxX",
+            "button_qnc4my"
           ]
         }
       },
       "block_order": [
-        "slide_V7Gjxt",
-        "slide_dfyRpK"
+        "slide_tYgKf4",
+        "slide_GL9RYP"
       ],
       "name": "t:names.slideshow_full_frame",
       "settings": {
         "display_mode": "full_frame",
-        "section_width": "page-width",
+        "section_width": "full-width",
         "full_frame_on_mobile": false,
-        "slideshow_gap": 0,
+        "slideshow_gap": 12,
         "corner_radius": 0,
-        "slide_height": "small",
+        "slide_height": "medium",
         "content_position": "on-media",
         "background_color": "",
         "icons_style": "arrows_large",
         "icons_shape": "none",
-        "slideshow_controls_style": "counter",
-        "autoplay": true,
+        "slideshow_controls_style": "dots",
+        "autoplay": false,
         "autoplay_speed": 4,
         "padding-block-start": 0,
         "padding-block-end": 0
@@ -2383,6 +2405,6 @@
     "vk_products_m9Whk9",
     "vk_countdown_banner_4yha6f",
     "vk_products_aHNEiX",
-    "slideshow_KLdPrh"
+    "slideshow_kaF3QN"
   ]
 }
