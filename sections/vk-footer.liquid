@@ -45,7 +45,7 @@
       <p class="ww-footer__address">
         {% comment %} <strong>{{ section.settings.company_name | escape }}</strong> {% endcomment %}
         {% if section.settings.company_address != blank %}
-          <br>{{ section.settings.company_address | escape | newline_to_br }}
+          {{ section.settings.company_address | escape | newline_to_br }}
         {% endif %}
       </p>
 
