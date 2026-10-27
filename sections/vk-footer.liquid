@@ -43,7 +43,7 @@
       <h3>{{ section.settings.contact_heading | escape }}</h3>
 
       <p class="ww-footer__address">
-        <strong>{{ section.settings.company_name | escape }}</strong>
+        {% comment %} <strong>{{ section.settings.company_name | escape }}</strong> {% endcomment %}
         {% if section.settings.company_address != blank %}
           <br>{{ section.settings.company_address | escape | newline_to_br }}
         {% endif %}
