@@ -612,7 +612,7 @@ body,
   input.paragraph.paragraph:not([type]),
   textarea.paragraph.paragraph,
   select.paragraph.paragraph {
-    font-size: max(1rem, var(--font-paragraph--size));
+    font-size: max(14px, var(--font-paragraph--size));
   }
 }
 
@@ -1883,6 +1883,3 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   transform: translateY(-5px);
 }
 
-.ui-test-collection-list .collection-card .collection-card--image-bg .collection-card__content {
-  padding-bottom: 0px !important;
-}
