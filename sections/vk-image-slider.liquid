@@ -1,640 +1,230 @@
 
-{% comment %}
-  vk Vertical Scroll Image Slider
-  File: sections/ww-image-slider.liquid
-{% endcomment %}
+{{ 'https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css' | stylesheet_tag }}
 
-<section
-  id="ww-slider-{{ section.id }}"
-  class="ww-slider"
-  data-autoplay="{{ section.settings.autoplay }}"
-  data-speed="{{ section.settings.speed | times: 1000 }}"
-  style="
-    --ww-desktop-height: {{ section.settings.desktop_height }}px;
-    --ww-mobile-height: {{ section.settings.mobile_height }}px;
-    --ww-slide-count: {{ section.blocks.size | at_least: 1 }};
-    --ww-image-fit: {{ section.settings.image_fit }};
-  "
->
-  <div class="ww-slider__stage">
-    <div class="ww-slider__track">
-      {% for block in section.blocks %}
-        <div
-          class="ww-slider__slide{% if forloop.first %} is-active{% endif %}"
-          {{ block.shopify_attributes }}
-          aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
-        >
-          {% if block.settings.image != blank %}
-            <picture class="ww-slider__picture">
-              {% if block.settings.mobile_image != blank %}
-                <source
-                  media="(max-width: 749px)"
-                  srcset="{{ block.settings.mobile_image | image_url: width: 1000 }}"
-                >
-              {% endif %}
+<div id="ww-image-slider-{{ section.id }}" class="ww-image-slider">
+  <div class="swiper ww-swiper">
+    <div class="swiper-wrapper">
 
-              {{
-                block.settings.image
-                | image_url: width: 2400
-                | image_tag:
-                  class: 'ww-slider__image',
-                  loading: 'lazy',
-                  widths: '750, 1100, 1500, 2000, 2400',
-                  sizes: '100vw'
-              }}
-            </picture>
-          {% else %}
+      {% for i in (1..4) %}
+        {% assign image_key = 'slide_' | append: i | append: '_image' %}
+        {% assign slide_image = section.settings[image_key] %}
+
+        <div class="swiper-slide ww-slide">
+          {% if slide_image != blank %}
             {{
-              'lifestyle-1'
-              | placeholder_svg_tag: 'ww-slider__image ww-slider__placeholder'
+              slide_image
+              | image_url: width: 2000
+              | image_tag:
+                loading: 'lazy',
+                widths: '375, 550, 750, 1100, 1500, 2000',
+                sizes: '100vw',
+                class: 'ww-slide-image',
+                alt: slide_image.alt
             }}
+          {% else %}
+            <div class="ww-slide-placeholder">
+              <span>Slide {{ i }}</span>
+              <p>Select Slide {{ i }} image in the Theme Editor</p>
+            </div>
           {% endif %}
-
-          <div
-            class="ww-slider__overlay"
-            style="--ww-overlay: {{ block.settings.overlay | divided_by: 100.0 }};"
-          ></div>
-
-          <div class="ww-slider__content ww-slider__content--{{ block.settings.position }}">
-            {% if block.settings.heading != blank %}
-              <h2>{{ block.settings.heading | escape }}</h2>
-            {% endif %}
-
-            {% if block.settings.button_label != blank %}
-              <a
-                class="ww-slider__button"
-                href="{{ block.settings.button_link | default: block.settings.link | default: routes.all_products_collection_url }}"
-              >
-                {{ block.settings.button_label | escape }}
-                <span aria-hidden="true">➝</span>
-              </a>
-            {% endif %}
-          </div>
         </div>
       {% endfor %}
+
     </div>
 
-    {% if section.blocks.size > 1 %}
-      <div class="ww-slider__dots" aria-label="Choose slide">
-        {% for block in section.blocks %}
-          <button
-            type="button"
-            class="ww-slider__dot{% if forloop.first %} is-active{% endif %}"
-            aria-label="Go to slide {{ forloop.index }}"
-            aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-            data-slide-index="{{ forloop.index0 }}"
-          ></button>
-        {% endfor %}
-      </div>
-    {% endif %}
+    <div class="swiper-pagination"></div>
   </div>
-</section>
+</div>
 
 <style>
-  #ww-slider-{{ section.id }} {
-    position: relative;
+  #ww-image-slider-{{ section.id }} {
     width: 100%;
-    height: calc(
-      var(--ww-slide-count) * var(--ww-desktop-height)
-    );
-    background: #e9e3da;
-    color: #fff;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__stage {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: var(--ww-desktop-height);
     overflow: hidden;
-    isolation: isolate;
   }
 
-  #ww-slider-{{ section.id }} .ww-slider__track {
+  #ww-image-slider-{{ section.id }} .ww-swiper {
+    width: 100%;
+    height: {{ section.settings.slider_height }}px;
+  }
+
+  #ww-image-slider-{{ section.id }} .ww-slide {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background: #f3f3f3;
   }
 
-  #ww-slider-{{ section.id }} .ww-slider__slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    opacity: 0;
-    visibility: visible;
-    transform: translate3d(0, 100%, 0);
-    transition:
-      transform 0.7s ease,
-      opacity 0.7s ease;
-    pointer-events: none;
-    will-change: transform, opacity;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__slide.is-active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    pointer-events: auto;
-    z-index: 2;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__slide.is-prev {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-    z-index: 1;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__picture {
-    position: absolute;
-    inset: 0;
+  #ww-image-slider-{{ section.id }} .ww-slide-image {
     display: block;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
-  #ww-slider-{{ section.id }} .ww-slider__image,
-  #ww-slider-{{ section.id }} .ww-slider__placeholder {
-    position: absolute;
-    inset: 0;
-    display: block;
+  #ww-image-slider-{{ section.id }} .ww-slide-placeholder {
     width: 100%;
     height: 100%;
-    object-fit: var(--ww-image-fit);
-    object-position: center;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: rgba(0, 0, 0, var(--ww-overlay));
-    pointer-events: none;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__content {
-    position: absolute;
-    z-index: 2;
-    right: 28px;
-    bottom: 55px;
-    left: 28px;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__content--center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #e8e8e8;
+    color: #333;
     text-align: center;
   }
 
-  #ww-slider-{{ section.id }} .ww-slider__content--right {
-    text-align: right;
+  #ww-image-slider-{{ section.id }} .swiper-pagination {
+    right: 20px;
+    left: auto;
   }
 
-  #ww-slider-{{ section.id }} .ww-slider__content h2 {
-    margin: 0 0 12px;
-    color: inherit;
-    font-size: clamp(26px, 3vw, 48px);
-    font-weight: 600;
-    line-height: 1.15;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding-bottom: 4px;
-    color: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__button span {
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__button:hover span {
-    transform: translateX(5px);
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__dots {
-    position: absolute;
-    z-index: 5;
-    bottom: 18px;
-    left: 50%;
-    display: flex;
-    gap: 9px;
-    transform: translateX(-50%);
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__dot {
-    width: 9px;
-    height: 9px;
-    padding: 0;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    background: transparent;
-    cursor: pointer;
-  }
-
-  #ww-slider-{{ section.id }} .ww-slider__dot.is-active {
+  #ww-image-slider-{{ section.id }} .swiper-pagination-bullet {
     background: #fff;
+    opacity: 0.6;
   }
 
-  @media (max-width: 749px) {
-    #ww-slider-{{ section.id }} {
-      height: calc(
-        var(--ww-slide-count) * var(--ww-mobile-height)
-      );
-    }
-
-    #ww-slider-{{ section.id }} .ww-slider__stage {
-      height: var(--ww-mobile-height);
-    }
-
-    #ww-slider-{{ section.id }} .ww-slider__content {
-      right: 20px;
-      bottom: 48px;
-      left: 20px;
-    }
-
-    #ww-slider-{{ section.id }} .ww-slider__content h2 {
-      font-size: 28px;
-    }
+  #ww-image-slider-{{ section.id }} .swiper-pagination-bullet-active {
+    background: #fff;
+    opacity: 1;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    #ww-slider-{{ section.id }} .ww-slider__slide,
-    #ww-slider-{{ section.id }} .ww-slider__button span {
-      transition: none;
+  @media screen and (max-width: 749px) {
+    #ww-image-slider-{{ section.id }} .ww-swiper {
+      height: {{ section.settings.mobile_slider_height }}px;
     }
   }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"></script>
+
 <script>
   (() => {
-    const root = document.getElementById('ww-slider-{{ section.id }}');
+    const sliderId = 'ww-image-slider-{{ section.id }}';
 
-    if (!root || root.dataset.initialized) return;
-    root.dataset.initialized = 'true';
+    function initWWSlider() {
+      const container = document.getElementById(sliderId);
 
-    const slides = Array.from(
-      root.querySelectorAll('.ww-slider__slide')
-    );
-    const dots = Array.from(
-      root.querySelectorAll('.ww-slider__dot')
-    );
+      if (!container || typeof Swiper === 'undefined') return;
 
-    if (!slides.length) return;
-
-    const autoplay = root.dataset.autoplay === 'true';
-    const speed = Number(root.dataset.speed) || 5000;
-    const reducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    let current = 0;
-    let timer = null;
-    let scrollFrame = null;
-    let isAnimating = false;
-    let animationTimer = null;
-    let lastManualChange = 0;
-
-    const duration = reducedMotion ? 0 : 700;
-
-    function updateDots(index) {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('is-active', i === index);
-        dot.setAttribute(
-          'aria-current',
-          i === index ? 'true' : 'false'
-        );
-      });
-    }
-
-    function showSlide(index, direction) {
-      if (index < 0 || index >= slides.length) return;
-      if (index === current || isAnimating) return;
-
-      const previous = current;
-      const oldSlide = slides[previous];
-      const newSlide = slides[index];
-
-      current = index;
-      isAnimating = true;
-
-      slides.forEach((slide) => {
-        slide.classList.remove('is-active', 'is-prev');
-        slide.setAttribute('aria-hidden', 'true');
-        slide.style.zIndex = '';
-      });
-
-      // Prepare the incoming slide outside the visible area.
-      newSlide.style.transition = 'none';
-      newSlide.style.opacity = '0';
-      newSlide.style.transform = direction > 0
-        ? 'translate3d(0, 100%, 0)'
-        : 'translate3d(0, -100%, 0)';
-      newSlide.style.zIndex = '3';
-      newSlide.setAttribute('aria-hidden', 'false');
-
-      // Prepare the outgoing slide.
-      oldSlide.style.transition = 'none';
-      oldSlide.style.opacity = '1';
-      oldSlide.style.transform = 'translate3d(0, 0, 0)';
-      oldSlide.style.zIndex = '2';
-
-      newSlide.offsetHeight;
-
-      oldSlide.style.transition = '';
-      newSlide.style.transition = '';
-
-      requestAnimationFrame(() => {
-        oldSlide.style.transform = direction > 0
-          ? 'translate3d(0, -100%, 0)'
-          : 'translate3d(0, 100%, 0)';
-        oldSlide.style.opacity = '0';
-
-        newSlide.classList.add('is-active');
-        newSlide.style.transform = 'translate3d(0, 0, 0)';
-        newSlide.style.opacity = '1';
-
-        updateDots(current);
-      });
-
-      clearTimeout(animationTimer);
-
-      animationTimer = setTimeout(() => {
-        oldSlide.style.opacity = '';
-        oldSlide.style.transform = '';
-        oldSlide.style.transition = '';
-        oldSlide.style.zIndex = '';
-
-        newSlide.style.opacity = '';
-        newSlide.style.transform = '';
-        newSlide.style.transition = '';
-        newSlide.style.zIndex = '';
-
-        oldSlide.classList.toggle('is-prev', direction > 0);
-        isAnimating = false;
-      }, duration + 30);
-    }
-
-    function stopAutoplay() {
-      if (timer) clearInterval(timer);
-      timer = null;
-    }
-
-    function startAutoplay() {
-      stopAutoplay();
-
-      if (
-        !autoplay ||
-        slides.length < 2 ||
-        document.hidden ||
-        reducedMotion
-      ) {
-        return;
+      if (container.swiper) {
+        container.swiper.destroy(true, true);
       }
 
-      timer = setInterval(() => {
-        if (!isAnimating) {
-          const next = current === slides.length - 1
-            ? 0
-            : current + 1;
+      new Swiper(container.querySelector('.ww-swiper'), {
+        direction: 'vertical',
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        speed: 700,
 
-          showSlide(next, next > current ? 1 : -1);
+        pagination: {
+          el: container.querySelector('.swiper-pagination'),
+          clickable: true
+        },
+
+        {% if section.settings.autoplay %}
+        autoplay: {
+          delay: {{ section.settings.autoplay_speed | times: 1000 }},
+          disableOnInteraction: false
+        },
+        {% endif %}
+
+        mousewheel: true,
+        keyboard: {
+          enabled: true
         }
-      }, speed);
-    }
-
-    // Scroll progress controls the active image while the
-    // sticky slider moves through its scroll area.
-    function updateFromScroll() {
-      scrollFrame = null;
-
-      if (slides.length < 2) return;
-
-      const rect = root.getBoundingClientRect();
-      const scrollDistance = root.offsetHeight -
-        root.querySelector('.ww-slider__stage').offsetHeight;
-
-      if (scrollDistance <= 0) return;
-
-      const progress = Math.max(
-        0,
-        Math.min(1, -rect.top / scrollDistance)
-      );
-
-      const target = Math.round(
-        progress * (slides.length - 1)
-      );
-
-      if (target !== current && !isAnimating) {
-        const direction = target > current ? 1 : -1;
-        stopAutoplay();
-        showSlide(target, direction);
-      }
-    }
-
-    function onScroll() {
-      if (scrollFrame !== null) return;
-
-      scrollFrame = requestAnimationFrame(updateFromScroll);
-    }
-
-    // Clicking dots navigates to the corresponding scroll position.
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        const scrollDistance = root.offsetHeight -
-          root.querySelector('.ww-slider__stage').offsetHeight;
-
-        const targetTop = window.scrollY +
-          root.getBoundingClientRect().top +
-          (slides.length > 1
-            ? (index / (slides.length - 1)) * scrollDistance
-            : 0);
-
-        lastManualChange = Date.now();
-
-        window.scrollTo({
-          top: targetTop,
-          behavior: reducedMotion ? 'auto' : 'smooth'
-        });
       });
-    });
+    }
 
-    root.addEventListener('mouseenter', stopAutoplay);
-    root.addEventListener('mouseleave', startAutoplay);
-    root.addEventListener('focusin', stopAutoplay);
-    root.addEventListener('focusout', startAutoplay);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initWWSlider, {
+        once: true
+      });
+    } else {
+      initWWSlider();
+    }
 
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopAutoplay();
-      } else {
-        startAutoplay();
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        initWWSlider();
       }
     });
-
-    // Set initial state.
-    slides.forEach((slide, index) => {
-      slide.classList.toggle('is-active', index === 0);
-      slide.classList.remove('is-prev');
-      slide.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
-    });
-
-    updateDots(0);
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-
-    updateFromScroll();
-    startAutoplay();
-
-    // Keep the slider synchronized with the page scroll.
-    // Avoid a separate wheel handler so native scrolling works.
   })();
 </script>
 
 {% schema %}
 {
-  "name": "Vk Scroll Slider",
+  "name": "WW Image Slider",
   "settings": [
     {
+      "type": "header",
+      "content": "Slide Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_image",
+      "label": "Slide 1 Main Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_image",
+      "label": "Slide 2 Main Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_3_image",
+      "label": "Slide 3 Main Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_4_image",
+      "label": "Slide 4 Main Image"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
       "type": "range",
-      "id": "desktop_height",
-      "label": "Desktop slider height",
-      "min": 350,
+      "id": "slider_height",
+      "label": "Desktop Height",
+      "min": 300,
       "max": 900,
       "step": 50,
-      "default": 750,
+      "default": 600,
       "unit": "px"
     },
     {
       "type": "range",
-      "id": "mobile_height",
-      "label": "Mobile slider height",
-      "min": 300,
-      "max": 750,
+      "id": "mobile_slider_height",
+      "label": "Mobile Height",
+      "min": 250,
+      "max": 650,
       "step": 50,
-      "default": 500,
+      "default": 400,
       "unit": "px"
-    },
-    {
-      "type": "select",
-      "id": "image_fit",
-      "label": "Image fit",
-      "options": [
-        {
-          "value": "cover",
-          "label": "Cover"
-        },
-        {
-          "value": "contain",
-          "label": "Contain"
-        }
-      ],
-      "default": "cover"
     },
     {
       "type": "checkbox",
       "id": "autoplay",
-      "label": "Enable autoplay",
-      "default": false
+      "label": "Enable Autoplay",
+      "default": true
     },
     {
       "type": "range",
-      "id": "speed",
-      "label": "Autoplay interval",
-      "min": 3,
+      "id": "autoplay_speed",
+      "label": "Autoplay Delay",
+      "min": 2,
       "max": 10,
       "step": 1,
-      "default": 5,
-      "unit": "s"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "slide",
-      "name": "Slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Desktop image"
-        },
-        {
-          "type": "image_picker",
-          "id": "mobile_image",
-          "label": "Mobile image"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "Blazers"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Button label",
-          "default": "Shop Now"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Slide link"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "Button link (optional)"
-        },
-        {
-          "type": "select",
-          "id": "position",
-          "label": "Text position",
-          "options": [
-            {
-              "value": "left",
-              "label": "Bottom left"
-            },
-            {
-              "value": "center",
-              "label": "Bottom center"
-            },
-            {
-              "value": "right",
-              "label": "Bottom right"
-            }
-          ],
-          "default": "left"
-        },
-        {
-          "type": "range",
-          "id": "overlay",
-          "label": "Overlay darkness",
-          "min": 0,
-          "max": 60,
-          "step": 5,
-          "default": 15,
-          "unit": "%"
-        }
-      ]
+      "default": 4,
+      "unit": "sec"
     }
   ],
   "presets": [
     {
-      "name": "Vk Scroll Slider",
-      "blocks": [
-        { "type": "slide" },
-        { "type": "slide" },
-        { "type": "slide" }
-      ]
+      "name": "WW Image Slider"
     }
   ]
 }
