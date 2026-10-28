@@ -1896,7 +1896,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 #shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides > * {
-    flex: 0 0 calc((100% - 12px) / 1.6) !important;
+    flex: 0 0 calc((100% - 30px) / 1.6) !important;
     min-width: 0;
 }
 
