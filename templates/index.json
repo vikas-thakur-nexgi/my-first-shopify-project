@@ -3104,7 +3104,7 @@
           "settings": {
             "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
             "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
@@ -3112,9 +3112,9 @@
         "video_product_4jbfjL": {
           "type": "video_product",
           "settings": {
-            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
-            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "video": "shopify://files/videos/3cf27f13ae8f410d9690c167e1e61919.HD-720p-3.0Mbps-91891684.mp4",
+            "product": "canvas-tote-bag",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
@@ -3122,10 +3122,10 @@
         "video_product_GWCAYN": {
           "type": "video_product",
           "settings": {
-            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "video": "shopify://files/videos/AQNQuwNgHYVgdP_TXsSTknjo7s90ODi5O-tspOao7vatvyd7vhvQWXQXbM5mPeDU9UT8jyiUMjDTLioinIsDRsbuLbjXkGTPsvt7ox4y2tvrzj0cr1785224032004_720.mp4",
             "thumbnail": "shopify://shop_images/m-askporgfj72665-new-allen-solly-resized-original-imagfzk8vjxgurcj_1.webp",
-            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "product": "t-shirt",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
@@ -3133,9 +3133,9 @@
         "video_product_XyJzUe": {
           "type": "video_product",
           "settings": {
-            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
-            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "video": "shopify://files/videos/AQMoAmAS4f2734AGqSES9vB4h530smxrQPlnd1EqDKhMMKN8b12aGP98oQW2re7ISR6ZVm7Gybvfh-VygRyCoqjWyoM9cuO-jzwlrGQvn67n4w4man1785224061372_720.mp4",
+            "product": "dollar-men-solid-polo-neck-pure-cotton-green-t-shirt",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
@@ -3143,9 +3143,9 @@
         "video_product_6Ra8en": {
           "type": "video_product",
           "settings": {
-            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
-            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "video": "shopify://files/videos/AQN6fxWSQPM1irFI9iAcqg-HCkt2uDGTvV8Y5veYLTjgr6fIhrAv6TFEGUkFcKs8oTe_zk2tZ44eTvhiOpoW1TkQEqkTun4aKXEzeIw517h7lcj4t1785224092191_720.mp4",
+            "product": "t-shirt",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
@@ -3153,9 +3153,9 @@
         "video_product_EfPCjU": {
           "type": "video_product",
           "settings": {
-            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
-            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "video": "shopify://files/videos/AQNXeH8qZoLCm8Zti3rBf4En64JQBp3k6CttOnq1giiOQPUIu7Soz5dYzHygaDDiscIiprZrbC4B53hOFB6JpBpsRUiC0H3SYW3-dJc75eukcghff41785223966548_720.mp4",
+            "product": "metronaut-men-regular-fit-checkered-spread-collar-casual-shirt",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
@@ -3163,9 +3163,9 @@
         "video_product_Ye4DLd": {
           "type": "video_product",
           "settings": {
-            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
-            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "video": "shopify://files/videos/AQOTgP3k7VNbt9y8wvAnLeKKEzGUrLp6YhdILLdfVtc2EdqF5qQcXzzuVnabaUu0EKxJK_rP0E3gERL-KOrrj6wwlU5K7T_7K_tzBQ04ee5dvsgdt1785224001229_720.mp4",
+            "product": "white-everyday-shirt",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
@@ -3175,7 +3175,7 @@
           "settings": {
             "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
             "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
-            "discount": "30% OFF",
+            "discount_override": "",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
