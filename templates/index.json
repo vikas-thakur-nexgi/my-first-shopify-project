@@ -3109,37 +3109,72 @@
             "fallback_description": "Discover this collection."
           }
         },
-        "video_product_Nzj3jq": {
+        "video_product_4jbfjL": {
           "type": "video_product",
           "settings": {
-            "product": "",
+            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
             "discount": "30% OFF",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
         },
-        "video_product_YekXiN": {
+        "video_product_GWCAYN": {
           "type": "video_product",
           "settings": {
-            "product": "",
+            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "thumbnail": "shopify://shop_images/m-askporgfj72665-new-allen-solly-resized-original-imagfzk8vjxgurcj_1.webp",
+            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
             "discount": "30% OFF",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
         },
-        "video_product_yF6TJb": {
+        "video_product_XyJzUe": {
           "type": "video_product",
           "settings": {
-            "product": "",
+            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
             "discount": "30% OFF",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
           }
         },
-        "video_product_8iHfCQ": {
+        "video_product_6Ra8en": {
           "type": "video_product",
           "settings": {
-            "product": "",
+            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
+            "discount": "30% OFF",
+            "fallback_title": "Featured Product",
+            "fallback_description": "Discover this collection."
+          }
+        },
+        "video_product_EfPCjU": {
+          "type": "video_product",
+          "settings": {
+            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
+            "discount": "30% OFF",
+            "fallback_title": "Featured Product",
+            "fallback_description": "Discover this collection."
+          }
+        },
+        "video_product_Ye4DLd": {
+          "type": "video_product",
+          "settings": {
+            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
+            "discount": "30% OFF",
+            "fallback_title": "Featured Product",
+            "fallback_description": "Discover this collection."
+          }
+        },
+        "video_product_wdxcHf": {
+          "type": "video_product",
+          "settings": {
+            "video": "shopify://files/videos/49e5ec739cf94229a8232f26fc17934b.HD-720p-3.0Mbps-91891490.mp4",
+            "product": "allen-solly-men-solid-polo-neck-cotton-blend-black-t-shirt-new",
             "discount": "30% OFF",
             "fallback_title": "Featured Product",
             "fallback_description": "Discover this collection."
@@ -3148,10 +3183,13 @@
       },
       "block_order": [
         "video_product_Q68nbr",
-        "video_product_Nzj3jq",
-        "video_product_YekXiN",
-        "video_product_yF6TJb",
-        "video_product_8iHfCQ"
+        "video_product_4jbfjL",
+        "video_product_GWCAYN",
+        "video_product_XyJzUe",
+        "video_product_6Ra8en",
+        "video_product_EfPCjU",
+        "video_product_Ye4DLd",
+        "video_product_wdxcHf"
       ],
       "name": "Instagram Product Videos",
       "settings": {
