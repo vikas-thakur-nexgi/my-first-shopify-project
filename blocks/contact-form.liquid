@@ -1,6 +1,4 @@
-
-
-{% capture submit_button %}
+{% comment %} {% capture submit_button %}
   {% content_for 'block', type: 'contact-form-submit-button', id: 'submit-button' %}
 {% endcapture %}
 
@@ -177,6 +175,533 @@
     align-items: center;
     gap: var(--gap-xs);
   }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.contact_form",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:settings.width_desktop",
+      "options": [
+        {
+          "value": "fit-content",
+          "label": "t:options.fit_content"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.custom"
+        }
+      ],
+      "default": "fit-content"
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "t:settings.width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100,
+      "visible_if": "{{ block.settings.width == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "width_mobile",
+      "label": "t:settings.width_mobile",
+      "options": [
+        {
+          "value": "fit-content",
+          "label": "t:options.fit_content"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.custom"
+        }
+      ],
+      "default": "fit-content"
+    },
+    {
+      "type": "range",
+      "id": "custom_width_mobile",
+      "label": "t:settings.width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100,
+      "visible_if": "{{ block.settings.width_mobile == 'custom' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "placeholder": "t:settings.default"
+    },
+    {
+      "type": "header",
+      "content": "t:content.input"
+    },
+    {
+      "type": "select",
+      "id": "input_style",
+      "label": "t:settings.style",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:options.default"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.custom"
+        }
+      ],
+      "default": "default",
+      "info": "t:info.edit_input_field_in_theme_settings"
+    },
+    {
+      "type": "color",
+      "id": "input_background_color",
+      "label": "t:settings.background",
+      "default": "{{ settings.color_palette.background }}",
+      "visible_if": "{{ block.settings.input_style == \"custom\" }}"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "t:settings.text",
+      "default": "{{ settings.color_palette.foreground }}",
+      "visible_if": "{{ block.settings.input_style == \"custom\" }}"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "t:settings.borders",
+      "default": "{{ settings.color_palette.foreground }}",
+      "visible_if": "{{ block.settings.input_style == \"custom\" }}"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "t:settings.border_width",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.input_style == \"custom\" }}"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "t:settings.border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.input_style == \"custom\" }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.contact_form",
+      "category": "t:categories.forms"
+    }
+  ]
+}
+{% endschema %} {% endcomment %}
+
+
+
+
+{% capture submit_button %}
+  {% content_for 'block', type: 'contact-form-submit-button', id: 'submit-button' %}
+{% endcapture %}
+
+<div
+  class="contact-form spacing-style size-style"
+  style="
+    {% render 'spacing-style', settings: block.settings %}
+    {% render 'size-style', settings: block.settings %}
+    {% if block.settings.background_color != blank %}background-color: {{ block.settings.background_color }};{% endif %}
+    {% if block.settings.input_style == 'custom' %}
+      {% render 'input-custom-styles', block_settings: block.settings %}
+      --style-border-width-inputs: {{ block.settings.border_width }}px;
+      --style-border-radius-inputs: {{ block.settings.border_radius }}px;
+    {% endif %}
+  "
+  {{ block.shopify_attributes }}
+>
+  <!-- Contact Information: Above the Form -->
+  <div class="ww-contact-info">
+
+    <h2 class="ww-contact-title">Contact Us</h2>
+
+    <div class="ww-contact-company">
+      <h3>The Civilized Society</h3>
+
+      <p class="ww-contact-address">
+        H-44, Durga Industrial Park, Behind Major Mohit Sharma Metro Station,
+        Rajender Nagar, Ghaziabad, UP
+      </p>
+
+      <p class="ww-contact-gstin">
+        <strong>GSTIN:</strong> 09AAYFT6319D1ZN
+      </p>
+    </div>
+
+    <div class="ww-contact-divider"></div>
+
+    <div class="ww-contact-details">
+
+      <div class="ww-contact-support">
+        <h4>Customer Support</h4>
+
+        <p>
+          <strong>Call / WhatsApp:</strong>
+          <a href="tel:+919625037626">+91 9625037626</a>
+        </p>
+
+        <p>
+          <strong>Email:</strong>
+          <a href="mailto:care@ashtheory.com">care@ashtheory.com</a>
+        </p>
+      </div>
+
+      <div class="ww-contact-hours">
+        <h4>Support Hours</h4>
+        <p>Strictly Monday to Saturday</p>
+        <p>11 AM – 5 PM</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Original Shopify Contact Form -->
+  {% assign form_id = block.id | default: section.id | prepend: 'ContactForm-' %}
+
+  {%- form 'contact', id: form_id, class: 'contact-form__form' -%}
+
+    <input
+      name="contact[id]"
+      type="hidden"
+      value="{{ form_id }}"
+    >
+
+    {% liquid
+      assign form_matches = false
+      if form.id == form_id or form.id == blank
+        assign form_matches = true
+      endif
+    %}
+
+    {%- if form.errors and form_matches -%}
+      <div
+        class="contact-form__error"
+        tabindex="-1"
+        autofocus
+      >
+        {{- 'icon-error.svg' | inline_asset_content -}}
+        {{- form.errors.translated_fields.email | capitalize }}
+        {{ form.errors.messages.email -}}
+      </div>
+    {%- endif -%}
+
+    {%- if form.posted_successfully? and form_matches -%}
+      <div
+        class="contact-form__success"
+        tabindex="-1"
+        autofocus
+      >
+        {{- 'icon-checkmark.svg' | inline_asset_content -}}
+        {{- 'blocks.contact_form.post_success' | t -}}
+      </div>
+    {%- endif -%}
+
+    <div class="contact-form__form-row">
+
+      <label class="visually-hidden" for="ContactForm-name">
+        {{- 'blocks.contact_form.name' | t -}}
+      </label>
+
+      <input
+        type="text"
+        id="ContactForm-name"
+        class="contact-form__input"
+        autocomplete="name"
+        name="contact[name]"
+        value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+        placeholder="{{ 'blocks.contact_form.name' | t }}"
+      >
+
+      <label class="visually-hidden" for="ContactForm-email">
+        {{- 'blocks.contact_form.email' | t -}}
+        <span aria-hidden="true">*</span>
+      </label>
+
+      <input
+        type="email"
+        id="ContactForm-email"
+        class="contact-form__input"
+        autocomplete="email"
+        name="contact[email]"
+        spellcheck="false"
+        autocapitalize="off"
+        value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+        aria-required="true"
+        {% if form.errors contains 'email' and form_matches %}
+          aria-invalid="true"
+          aria-describedby="ContactForm-email-error"
+        {% endif %}
+        placeholder="{{ 'blocks.contact_form.email' | t }}"
+      >
+
+    </div>
+
+    <label class="visually-hidden" for="ContactForm-phone">
+      {{- 'blocks.contact_form.phone' | t -}}
+    </label>
+
+    <input
+      type="tel"
+      id="ContactForm-phone"
+      class="contact-form__input"
+      autocomplete="tel"
+      name="contact[phone]"
+      pattern="[0-9\-]*"
+      value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+      placeholder="{{ 'blocks.contact_form.phone' | t }}"
+    >
+
+    <label class="visually-hidden" for="ContactForm-body">
+      {{- 'blocks.contact_form.comment' | t -}}
+    </label>
+
+    <textarea
+      rows="10"
+      id="ContactForm-body"
+      class="contact-form__input contact-form__input--textarea"
+      name="contact[body]"
+      placeholder="{{ 'blocks.contact_form.comment' | t }}"
+    >{{- form.body -}}</textarea>
+
+    {{ submit_button }}
+
+  {%- endform -%}
+</div>
+
+{% stylesheet %}
+
+  /* Contact Information */
+  .ww-contact-info {
+    width: 100%;
+    margin: 0 auto 40px;
+    color: #111111;
+    font-family: inherit;
+  }
+
+  .ww-contact-title {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 42px;
+  }
+
+  .ww-contact-company h3 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 12px;
+  }
+
+  .ww-contact-address,
+  .ww-contact-gstin,
+  .ww-contact-support p,
+  .ww-contact-hours p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ww-contact-address {
+    max-width: 650px;
+    margin-bottom: 8px;
+  }
+
+  .ww-contact-gstin {
+    margin-top: 8px;
+  }
+
+  .ww-contact-divider {
+    width: 100%;
+    height: 1px;
+    background: #dedede;
+    margin: 40px 0;
+  }
+
+  .ww-contact-details {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+  }
+
+  .ww-contact-details h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 22px;
+  }
+
+  .ww-contact-support a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .ww-contact-support a:hover {
+    opacity: 0.7;
+  }
+
+  /* Contact Form */
+  .contact-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .contact-form__form-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .contact-form__input {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-input-text);
+    background-color: var(--color-input-background);
+    padding: var(--padding-lg) var(--padding-xl);
+    border-radius: var(--style-border-radius-inputs);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .contact-form__input--textarea {
+    resize: vertical;
+    min-height: var(--input-textarea-min-height);
+  }
+
+  .contact-form__error,
+  .contact-form__success {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs);
+  }
+
+  /* Desktop Form Row */
+  @media screen and (min-width: 750px) {
+    .contact-form__form-row {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .contact-form__form-row > input {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  /* Mobile Responsive */
+  @media screen and (max-width: 749px) {
+    .ww-contact-info {
+      margin-bottom: 30px;
+    }
+
+    .ww-contact-title {
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+
+    .ww-contact-company h3 {
+      font-size: 24px;
+    }
+
+    .ww-contact-address,
+    .ww-contact-gstin,
+    .ww-contact-support p,
+    .ww-contact-hours p {
+      font-size: 15px;
+    }
+
+    .ww-contact-divider {
+      margin: 28px 0;
+    }
+
+    .ww-contact-details {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .ww-contact-details h4 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+  }
+
 {% endstylesheet %}
 
 {% schema %}
