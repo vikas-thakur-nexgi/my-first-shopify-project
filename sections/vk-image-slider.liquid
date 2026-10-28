@@ -1,22 +1,29 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css">
+
 <div id="ww-image-slider-{{ section.id }}" class="ww-image-slider">
   <div class="swiper ww-swiper">
     <div class="swiper-wrapper">
       {% for block in section.blocks %}
-        <div
-          class="swiper-slide ww-slide"
-          {{ block.shopify_attributes }}
-        >
+        <div class="swiper-slide ww-slide" {{ block.shopify_attributes }}>
           {% if block.settings.slide_image != blank %}
-            {{
-              block.settings.slide_image
-              | image_url: width: 2000
-              | image_tag:
-                loading: 'lazy',
-                widths: '375, 550, 750, 1100, 1500, 2000',
-                sizes: '100vw',
-                class: 'ww-slide-image'
-            }}
+            {%- capture slide_inner -%}
+              {{
+                block.settings.slide_image
+                | image_url: width: 2000
+                | image_tag:
+                  loading: forloop.first | ternary: 'eager', 'lazy',
+                  fetchpriority: forloop.first | ternary: 'high', 'auto',
+                  widths: '375, 550, 750, 1100, 1500, 2000',
+                  sizes: '100vw',
+                  class: 'ww-slide-image'
+              }}
+            {%- endcapture -%}
 
+            {% if block.settings.slide_link != blank %}
+              <a href="{{ block.settings.slide_link }}" class="ww-slide-link">{{ slide_inner }}</a>
+            {% else %}
+              {{ slide_inner }}
+            {% endif %}
           {% else %}
             <div class="ww-slide-placeholder">
               <span>Slide {{ forloop.index }}</span>
@@ -28,7 +35,12 @@
     </div>
 
     {% if section.settings.show_pagination %}
-      {% comment %} <div class="swiper-pagination"></div> {% endcomment %}
+      <div class="swiper-pagination"></div>
+    {% endif %}
+
+    {% if section.settings.show_arrows %}
+      <div class="swiper-button-prev" aria-label="Previous slide"></div>
+      <div class="swiper-button-next" aria-label="Next slide"></div>
     {% endif %}
   </div>
 </div>
@@ -43,6 +55,10 @@
   #ww-image-slider-{{ section.id }} .ww-swiper {
     width: 100%;
     height: {{ section.settings.slider_height }}px;
+    overflow: hidden;
+    --swiper-theme-color: #fff;
+    --swiper-navigation-color: #fff;
+    --swiper-navigation-size: 22px;
   }
 
   #ww-image-slider-{{ section.id }} .ww-slide {
@@ -51,6 +67,12 @@
     height: 100%;
     overflow: hidden;
     background: #f3f3f3;
+  }
+
+  #ww-image-slider-{{ section.id }} .ww-slide-link {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   #ww-image-slider-{{ section.id }} .ww-slide-image {
@@ -84,25 +106,46 @@
     font-size: 14px;
   }
 
-  #ww-image-slider-{{ section.id }} .swiper-pagination {
-    right: 20px;
-    left: auto;
-    width: auto;
-  }
-
   #ww-image-slider-{{ section.id }} .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
     background: #fff;
-    opacity: 0.6;
+    opacity: 0.55;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
   }
 
   #ww-image-slider-{{ section.id }} .swiper-pagination-bullet-active {
-    background: #fff;
     opacity: 1;
+  }
+
+  #ww-image-slider-{{ section.id }} .swiper-button-prev,
+  #ww-image-slider-{{ section.id }} .swiper-button-next {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+    transition: background 0.2s;
+  }
+
+  #ww-image-slider-{{ section.id }} .swiper-button-prev:hover,
+  #ww-image-slider-{{ section.id }} .swiper-button-next:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  #ww-image-slider-{{ section.id }} .swiper-button-prev:after,
+  #ww-image-slider-{{ section.id }} .swiper-button-next:after {
+    font-size: 18px;
+    font-weight: 700;
   }
 
   @media screen and (max-width: 749px) {
     #ww-image-slider-{{ section.id }} .ww-swiper {
       height: {{ section.settings.mobile_slider_height }}px;
+    }
+
+    #ww-image-slider-{{ section.id }} .swiper-button-prev,
+    #ww-image-slider-{{ section.id }} .swiper-button-next {
+      display: none;
     }
   }
 </style>
@@ -110,128 +153,93 @@
 <script>
   (function () {
     var sliderId = 'ww-image-slider-{{ section.id }}';
-    var swiperUrl = 'https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js';
-    var swiperCssUrl = 'https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css';
+    var swiperUrl = 'https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js';
 
-    function loadStylesheet() {
-      if (document.querySelector('link[href="' + swiperCssUrl + '"]')) return;
+    // Load Swiper only once, shared by every slider on the page
+    function loadSwiper() {
+      if (window.Swiper) return Promise.resolve();
+      if (window.wwSwiperPromise) return window.wwSwiperPromise;
 
-      var link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = swiperCssUrl;
-      document.head.appendChild(link);
+      window.wwSwiperPromise = new Promise(function (resolve, reject) {
+        var script = document.createElement('script');
+        script.src = swiperUrl;
+        script.onload = resolve;
+        script.onerror = function () {
+          window.wwSwiperPromise = null;
+          reject(new Error('Swiper could not be loaded.'));
+        };
+        document.head.appendChild(script);
+      });
+
+      return window.wwSwiperPromise;
     }
 
     function initWWSlider() {
       var container = document.getElementById(sliderId);
-
       if (!container) return;
-
-      if (container.swiper) {
-        container.swiper.destroy(true, true);
-      }
-
-      if (typeof Swiper === 'undefined') {
-        if (!window.wwSwiperLoading) {
-          window.wwSwiperLoading = true;
-
-          var script = document.createElement('script');
-          script.src = swiperUrl;
-          script.onload = function () {
-            window.wwSwiperLoading = false;
-            initWWSlider();
-          };
-          script.onerror = function () {
-            window.wwSwiperLoading = false;
-            console.error('Swiper could not be loaded.');
-          };
-
-          document.head.appendChild(script);
-        } else {
-          var waitForSwiper = setInterval(function () {
-            if (typeof Swiper !== 'undefined') {
-              clearInterval(waitForSwiper);
-              initWWSlider();
-            }
-          }, 100);
-
-          setTimeout(function () {
-            clearInterval(waitForSwiper);
-          }, 10000);
-        }
-
-        return;
-      }
 
       var swiperElement = container.querySelector('.ww-swiper');
       if (!swiperElement) return;
 
-      var slideCount = swiperElement.querySelectorAll('.swiper-slide').length;
+      if (swiperElement.swiper) swiperElement.swiper.destroy(true, true);
 
+      var slideCount = swiperElement.querySelectorAll('.swiper-slide').length;
       if (slideCount === 0) return;
 
-      var paginationElement = container.querySelector('.swiper-pagination');
+      var isVertical = '{{ section.settings.direction }}' === 'vertical';
+      var single = slideCount < 2;
 
-      var slider = new Swiper(swiperElement, {
-        direction: 'vertical',
+      var options = {
+        direction: isVertical ? 'vertical' : 'horizontal',
         slidesPerView: 1,
         spaceBetween: 0,
-
-        loop: false,
-        rewind: false,
         speed: 700,
+        rewind: !single,
+        allowTouchMove: !single,
+        // lets the page scroll normally when the slider is at its first/last slide
+        touchReleaseOnEdges: true,
+        keyboard: { enabled: false }
+      };
 
-        allowTouchMove: true,
-        mousewheel: true,
+      {% if section.settings.mousewheel %}
+      options.mousewheel = { releaseOnEdges: true };
+      {% endif %}
 
-        keyboard: {
-          enabled: true
-        },
+      {% if section.settings.show_pagination %}
+      options.pagination = { el: container.querySelector('.swiper-pagination'), clickable: true };
+      {% endif %}
 
-        {% if section.settings.show_pagination %}
-        pagination: {
-          el: paginationElement,
-          clickable: true
-        },
-        {% endif %}
+      {% if section.settings.show_arrows %}
+      options.navigation = {
+        nextEl: container.querySelector('.swiper-button-next'),
+        prevEl: container.querySelector('.swiper-button-prev')
+      };
+      {% endif %}
 
-        {% if section.settings.autoplay %}
-        autoplay: {
+      {% if section.settings.autoplay %}
+      if (!single) {
+        options.autoplay = {
           delay: {{ section.settings.autoplay_speed | times: 1000 }},
           disableOnInteraction: false,
-          stopOnLastSlide: true
-        }
-        {% endif %}
-      });
+          pauseOnMouseEnter: true
+        };
+      }
+      {% endif %}
 
-      container.swiper = slider;
+      new Swiper(swiperElement, options);
     }
 
-    loadStylesheet();
+    function start() {
+      loadSwiper().then(initWWSlider).catch(function (err) {
+        console.error(err);
+      });
+    }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initWWSlider, {
-        once: true
-      });
+      document.addEventListener('DOMContentLoaded', start, { once: true });
     } else {
-      initWWSlider();
+      start();
     }
-
-    document.addEventListener('shopify:section:load', function (event) {
-      if (event.detail.sectionId === '{{ section.id }}') {
-        initWWSlider();
-      }
-    });
-
-    document.addEventListener('shopify:section:unload', function (event) {
-      if (event.detail.sectionId === '{{ section.id }}') {
-        var container = document.getElementById(sliderId);
-
-        if (container && container.swiper) {
-          container.swiper.destroy(true, true);
-        }
-      }
-    });
   })();
 </script>
 
@@ -243,6 +251,16 @@
     {
       "type": "header",
       "content": "Slider Settings"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Slide direction",
+      "options": [
+        { "value": "horizontal", "label": "Horizontal (left / right)" },
+        { "value": "vertical", "label": "Vertical (up / down)" }
+      ],
+      "default": "horizontal"
     },
     {
       "type": "range",
@@ -269,14 +287,8 @@
       "id": "image_fit",
       "label": "Image Fit",
       "options": [
-        {
-          "value": "cover",
-          "label": "Cover"
-        },
-        {
-          "value": "contain",
-          "label": "Contain"
-        }
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
       ],
       "default": "cover"
     },
@@ -301,6 +313,19 @@
       "id": "show_pagination",
       "label": "Show Pagination Dots",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show Arrows (desktop)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "mousewheel",
+      "label": "Change slide with mouse wheel",
+      "info": "Page scroll tab bhi chalega jab first ya last slide par ho.",
+      "default": false
     }
   ],
   "blocks": [
@@ -312,6 +337,11 @@
           "type": "image_picker",
           "id": "slide_image",
           "label": "Main Image"
+        },
+        {
+          "type": "url",
+          "id": "slide_link",
+          "label": "Slide link (optional)"
         }
       ]
     }
@@ -320,18 +350,10 @@
     {
       "name": "WW Image Slider",
       "blocks": [
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        }
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
       ]
     }
   ]
