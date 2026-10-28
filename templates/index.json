@@ -1899,8 +1899,8 @@
       "name": "WW Image Slider",
       "settings": {
         "direction": "vertical",
-        "slider_height": 550,
-        "mobile_slider_height": 300,
+        "slider_height": 450,
+        "mobile_slider_height": 250,
         "image_fit": "cover",
         "autoplay": true,
         "autoplay_speed": 4,
