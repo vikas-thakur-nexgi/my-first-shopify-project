@@ -830,6 +830,9 @@
         "text_ND6rj8",
         "button_g8cGtF"
       ],
+      "custom_css": [
+        ".hero__media-grid{display: none;}"
+      ],
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
