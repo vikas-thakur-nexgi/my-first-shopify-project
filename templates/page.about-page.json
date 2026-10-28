@@ -420,7 +420,7 @@
                 "text_4tMD8E": {
                   "type": "text",
                   "settings": {
-                    "text": "<p><strong>Theory</strong> (noun)<br/>Soch, Nīti, Prakriyā</p>",
+                    "text": "<h3><strong>Theory</strong> (noun)<br/>Soch, Nīti, Prakriyā</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -431,7 +431,7 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "text_color": "",
+                    "text_color": "{{ settings.color_palette.color6 }}",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
