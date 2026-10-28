@@ -1890,7 +1890,7 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 #shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides {
     display: flex !important;
     flex-wrap: nowrap !important;
-    gap: 30px;
+    gap: 50px;
     overflow-x: auto !important;
     scrollbar-width: none;
 }
