@@ -1896,14 +1896,14 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 #shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides > * {
-    flex: 0 0 calc((100% - 12px) / 1.5) !important;
+    flex: 0 0 calc((100% - 12px) / 1.6) !important;
     min-width: 0;
 }
 
 #shopify-section-template--27948148031807__slideshow_kaF3QN video {
     width: 100%;
     height: 100%;
-    object-fit: contain !important;
+    object-fit: cover !important;
 }
 
 /* Tablet */
