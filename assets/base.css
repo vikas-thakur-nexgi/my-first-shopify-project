@@ -1883,3 +1883,26 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   transform: translateY(-5px);
 }
 
+
+/* video section */
+
+/* Desktop */
+#shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+    #shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides {
+        grid-template-columns: 15% 70% 15%;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+    #shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides {
+        grid-template-columns: 1fr;
+    }
+}
+
