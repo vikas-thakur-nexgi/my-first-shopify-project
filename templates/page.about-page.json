@@ -674,11 +674,11 @@
         "text_4AfKDm": {
           "type": "text",
           "settings": {
-            "text": "<p>Ash Theory begins at a place most stories don't like to talk about — the lowest point of a man's life.<br/><br/>Every man faces a phase where things fall apart. Dreams don't work. Efforts go unseen. Pressure builds. Confidence breaks. The world moves on while he stands still. This phase burns quietly, deeply. Not everyone survives it.<br/><br/>Fire doesn't destroy all men. It tests them.<br/><br/></p>",
+            "text": "<p>Ash Theory begins at a place most stories don't like to talk about — the lowest point of a man's life.<br/><br/>Every man faces a phase where things fall apart. Dreams don't work. Efforts go unseen. Pressure builds. Confidence breaks. The world moves on while he stands still. This phase burns quietly, deeply. Not everyone survives it.<br/><br/>Fire doesn't destroy all men. It tests them.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
-            "type_preset": "paragraph",
+            "type_preset": "rte",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
