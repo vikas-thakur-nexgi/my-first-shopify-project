@@ -5,17 +5,25 @@
 
   <div class="ig-videos__track">
     {% for block in section.blocks %}
-      {% assign product = block.settings.product %}
+      {%- liquid
+        assign product = block.settings.product
+        assign discount_text = block.settings.discount_override
+        if discount_text == blank and product != blank and product.compare_at_price > product.price
+          assign diff = product.compare_at_price | minus: product.price
+          assign pct = diff | times: 100.0 | divided_by: product.compare_at_price | round
+          assign discount_text = pct | append: '% OFF'
+        endif
+      -%}
 
       <article
         class="ig-card"
         data-ig-card
         data-title="{% if product != blank %}{{ product.title | escape }}{% else %}{{ block.settings.fallback_title | escape }}{% endif %}"
         data-price="{% if product != blank %}{{ product.price | money | escape }}{% endif %}"
-        data-compare="{% if product != blank %}{{ product.compare_at_price | money | escape }}{% endif %}"
-        data-description="{% if product != blank %}{{ product.description | strip_html | truncate: 220 | escape }}{% else %}{{ block.settings.fallback_description | escape }}{% endif %}"
+        data-compare="{% if product != blank and product.compare_at_price > product.price %}{{ product.compare_at_price | money | escape }}{% endif %}"
+        data-image="{% if product != blank and product.featured_image != blank %}{{ product.featured_image | image_url: width: 160 }}{% endif %}"
         data-url="{% if product != blank %}{{ product.url }}{% else %}#{% endif %}"
-        data-discount="{{ block.settings.discount | escape }}"
+        data-discount="{{ discount_text | escape }}"
         {{ block.shopify_attributes }}
       >
         <button
@@ -52,16 +60,12 @@
               {{ 'product-1' | placeholder_svg_tag: 'ig-card__thumbnail' }}
             {% endif %}
 
-            {% if block.settings.discount != blank %}
-              <span class="ig-card__discount">
-                {{ block.settings.discount | escape }}
-              </span>
+            {% if discount_text != blank %}
+              <span class="ig-card__discount">{{ discount_text | escape }}</span>
             {% endif %}
 
             <span class="ig-card__play" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5.5v13l10-6.5z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10-6.5z"/></svg>
             </span>
           </div>
         </button>
@@ -74,96 +78,76 @@
           {% endif %}
 
           {% if product != blank %}
-            <a href="{{ product.url }}" class="ig-card__title">
-              {{ product.title | escape }}
-            </a>
+            <a href="{{ product.url }}" class="ig-card__title">{{ product.title | escape }}</a>
 
             <div class="ig-card__prices">
-              <span class="ig-card__price">
-                {{ product.price | money }}
-              </span>
-
+              <span class="ig-card__price">{{ product.price | money }}</span>
               {% if product.compare_at_price > product.price %}
-                <s class="ig-card__compare">
-                  {{ product.compare_at_price | money }}
-                </s>
+                <s class="ig-card__compare">{{ product.compare_at_price | money }}</s>
               {% endif %}
             </div>
           {% else %}
-            <span class="ig-card__title">
-              {{ block.settings.fallback_title | escape }}
-            </span>
-
-            <div class="ig-card__prices">
-              {{ block.settings.fallback_description | escape }}
-            </div>
+            <span class="ig-card__title">{{ block.settings.fallback_title | escape }}</span>
+            <div class="ig-card__prices">{{ block.settings.fallback_description | escape }}</div>
           {% endif %}
         </div>
       </article>
     {% endfor %}
   </div>
 
-  <!-- Video Popup -->
+  <!-- Reel style popup -->
   <div
     class="ig-modal"
     data-ig-modal
     aria-hidden="true"
     role="dialog"
     aria-modal="true"
-    aria-label="Product video and details"
+    aria-label="Product video"
   >
-    <button
-      type="button"
-      class="ig-modal__backdrop"
-      data-ig-close
-      aria-label="Close popup"
-    ></button>
+    <button type="button" class="ig-modal__backdrop" data-ig-close aria-label="Close popup"></button>
 
-    <div class="ig-modal__dialog">
-      <button
-        type="button"
-        class="ig-modal__close"
-        data-ig-close
-        aria-label="Close video"
-      >
-        &times;
-      </button>
+    <button type="button" class="ig-modal__close" data-ig-close aria-label="Close video">&times;</button>
+    <button type="button" class="ig-modal__nav ig-modal__nav--prev" data-ig-prev aria-label="Previous video">&#10094;</button>
+    <button type="button" class="ig-modal__nav ig-modal__nav--next" data-ig-next aria-label="Next video">&#10095;</button>
 
-      <button
-        type="button"
-        class="ig-modal__nav ig-modal__nav--prev"
-        data-ig-prev
-        aria-label="Previous video"
-      >
-        &#10094;
-      </button>
+    <div class="ig-modal__stage">
+      <div class="ig-modal__side ig-modal__side--prev" data-ig-side-prev></div>
 
-      <div class="ig-modal__video" data-ig-modal-video></div>
+      <div class="ig-modal__main">
+        <div class="ig-modal__progress"><span data-ig-progress></span></div>
 
-      <button
-        type="button"
-        class="ig-modal__nav ig-modal__nav--next"
-        data-ig-next
-        aria-label="Next video"
-      >
-        &#10095;
-      </button>
+        <div class="ig-modal__video" data-ig-modal-video></div>
 
-      <div class="ig-modal__info">
-        <div class="ig-modal__product">
-          <div class="ig-modal__details">
-            <h3 data-ig-title></h3>
-            <p data-ig-description></p>
+        <div class="ig-modal__sound">
+          <span class="ig-modal__sound-label" data-ig-sound-label>Tap to unmute</span>
+          <button type="button" class="ig-modal__sound-btn" data-ig-sound aria-label="Toggle sound">
+            <svg class="ig-icon-muted" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12A4.5 4.5 0 0 0 14 8v2.2l2.4 2.4c.1-.2.1-.4.1-.6zM19 12c0 .9-.2 1.8-.6 2.6l1.5 1.5A8.9 8.9 0 0 0 21 12c0-4.3-3-7.9-7-8.8v2.1c2.9.9 5 3.5 5 6.7zM4.3 3 3 4.3 7.7 9H3v6h4l5 5v-6.7l4.2 4.2c-.7.5-1.4.9-2.2 1.1v2.1a9 9 0 0 0 3.7-1.8l2 2 1.3-1.3L4.3 3zM12 4 9.9 6.1 12 8.2V4z"/></svg>
+            <svg class="ig-icon-sound" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1c2.9.9 5 3.5 5 6.7s-2.1 5.800-5 6.700v2.100c4-.9 7-4.500 7-8.800s-3-7.900-7-8.800z"/></svg>
+          </button>
+        </div>
 
-            <div class="ig-modal__prices">
-              <span class="ig-modal__price" data-ig-price></span>
-              <s class="ig-modal__compare" data-ig-compare></s>
+        <div class="ig-modal__overlay">
+          <span class="ig-modal__badge" data-ig-badge></span>
+
+          <a class="ig-modal__product" data-ig-product-link href="#">
+            <img class="ig-modal__thumb" data-ig-thumb alt="" />
+            <div class="ig-modal__details">
+              <h3 data-ig-title></h3>
+              <div class="ig-modal__prices">
+                <span class="ig-modal__price" data-ig-price></span>
+                <s class="ig-modal__compare" data-ig-compare></s>
+              </div>
             </div>
-          </div>
+          </a>
 
-          <a class="ig-modal__shop" data-ig-link href="#"> View Product </a>
+          <a class="ig-modal__shop" data-ig-link href="#">
+            <span>Shop now</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
+
+      <div class="ig-modal__side ig-modal__side--next" data-ig-side-next></div>
     </div>
   </div>
 </section>
@@ -335,15 +319,16 @@
     color: #aaa;
   }
 
-  /* Popup */
+  /* ========== Reel style popup ========== */
   #instagram-videos-{{ section.id }} .ig-modal {
+    --ig-h: min(88vh, 800px);
+    --ig-w: calc(var(--ig-h) * 9 / 16);
     position: fixed;
     z-index: 99999;
     inset: 0;
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 24px;
   }
 
   #instagram-videos-{{ section.id }} .ig-modal.is-open {
@@ -356,50 +341,285 @@
     width: 100%;
     height: 100%;
     border: 0;
-    background: rgba(0, 0, 0, 0.8);
+    padding: 0;
+    background: rgba(0, 0, 0, 0.82);
     cursor: default;
   }
 
-  #instagram-videos-{{ section.id }} .ig-modal__dialog {
+  #instagram-videos-{{ section.id }} .ig-modal__stage {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
-    width: min(900px, 100%);
-    max-height: 90vh;
-    overflow: auto;
-    border-radius: 12px;
-    background: #fff;
-    color: #171717;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    pointer-events: none;
   }
 
-  #instagram-videos-{{ section.id }} .ig-modal__video {
+  #instagram-videos-{{ section.id }} .ig-modal__stage > * {
+    pointer-events: auto;
+  }
+
+  /* side previews */
+  #instagram-videos-{{ section.id }} .ig-modal__side {
     position: relative;
-    min-width: 0;
-    min-height: 300px;
-    max-height: 85vh;
-    background: #111;
+    flex: 0 0 auto;
+    width: calc(var(--ig-w) * 0.9);
+    height: calc(var(--ig-h) * 0.82);
+    overflow: hidden;
+    border-radius: 12px;
+    background: #222;
+    opacity: 0.55;
+    cursor: pointer;
+    transition: opacity 0.2s;
   }
 
-  #instagram-videos-{{ section.id }} .ig-modal__video video {
+  #instagram-videos-{{ section.id }} .ig-modal__side:hover {
+    opacity: 0.8;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__side:empty {
+    visibility: hidden;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__side video,
+  #instagram-videos-{{ section.id }} .ig-modal__side img {
     display: block;
     width: 100%;
     height: 100%;
-    max-height: 85vh;
-    object-fit: contain;
+    object-fit: cover;
+    pointer-events: none;
   }
 
-  #instagram-videos-{{ section.id }} .ig-modal__close {
+  #instagram-videos-{{ section.id }} .ig-modal__side-play {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 5;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__side-play svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* main video */
+  #instagram-videos-{{ section.id }} .ig-modal__main {
+    position: relative;
+    flex: 0 0 auto;
+    width: var(--ig-w);
+    height: var(--ig-h);
+    overflow: hidden;
+    border-radius: 12px;
+    background: #111;
+    color: #fff;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__video {
+    position: absolute;
+    inset: 0;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__video video,
+  #instagram-videos-{{ section.id }} .ig-modal__video img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__progress span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: #fff;
+  }
+
+  /* sound */
+  #instagram-videos-{{ section.id }} .ig-modal__sound {
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__sound-label {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #fff;
+    color: #111;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__sound-btn {
     display: grid;
     place-items: center;
     width: 38px;
     height: 38px;
-    border: 0;
-    border-radius: 50%;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__sound-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__sound-btn .ig-icon-sound {
+    display: none;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal.is-unmuted .ig-icon-sound {
+    display: block;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal.is-unmuted .ig-icon-muted,
+  #instagram-videos-{{ section.id }} .ig-modal.is-unmuted .ig-modal__sound-label {
+    display: none;
+  }
+
+  /* bottom product overlay */
+  #instagram-videos-{{ section.id }} .ig-modal__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    padding: 60px 8px 8px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 60%, transparent 100%);
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__badge {
+    position: absolute;
+    top: 28px;
+    left: 8px;
+    padding: 4px 10px;
+    background: #c90000;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 700;
+    border-radius: 0 4px 0 0;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__badge:empty {
+    display: none;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 4px 10px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__thumb {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__thumb[src=""],
+  #instagram-videos-{{ section.id }} .ig-modal__thumb:not([src]) {
+    display: none;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__details {
+    min-width: 0;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__details h3 {
+    margin: 0 0 4px;
+    overflow: hidden;
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.3;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__prices {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__price {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__compare {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 14px;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__shop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #000;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  #instagram-videos-{{ section.id }} .ig-modal__shop svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* close + arrows */
+  #instagram-videos-{{ section.id }} .ig-modal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
     background: #fff;
     color: #111;
     font-size: 28px;
@@ -409,75 +629,37 @@
 
   #instagram-videos-{{ section.id }} .ig-modal__nav {
     position: absolute;
-    z-index: 4;
-    top: 35%;
+    top: 50%;
+    z-index: 6;
     display: grid;
     place-items: center;
-    width: 42px;
-    height: 42px;
-    border: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
+    width: 36px;
+    height: 44px;
+    padding: 0;
+    transform: translateY(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    background: #fff;
     color: #111;
+    font-size: 16px;
     cursor: pointer;
   }
 
   #instagram-videos-{{ section.id }} .ig-modal__nav--prev {
-    left: 12px;
+    left: 0;
   }
 
   #instagram-videos-{{ section.id }} .ig-modal__nav--next {
-    left: calc(100% - 54px);
-  }
-
-  #instagram-videos-{{ section.id }} .ig-modal__info {
-    align-self: center;
-    padding: 32px 24px;
-  }
-
-  #instagram-videos-{{ section.id }} .ig-modal__details h3 {
-    margin: 0 0 12px;
-    font-size: 23px;
-    line-height: 1.3;
-  }
-
-  #instagram-videos-{{ section.id }} .ig-modal__details p {
-    margin: 0 0 18px;
-    color: #666;
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  #instagram-videos-{{ section.id }} .ig-modal__prices {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-
-  #instagram-videos-{{ section.id }} .ig-modal__price {
-    color: #c00;
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  #instagram-videos-{{ section.id }} .ig-modal__compare {
-    color: #999;
-  }
-
-  #instagram-videos-{{ section.id }} .ig-modal__shop {
-    display: inline-block;
-    padding: 13px 22px;
-    background: #111;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    text-align: center;
+    right: 14px;
   }
 
   @media (max-width: 1100px) {
     #instagram-videos-{{ section.id }} .ig-card {
       flex-basis: 25%;
+    }
+
+    #instagram-videos-{{ section.id }} .ig-modal__side {
+      display: none;
     }
   }
 
@@ -500,45 +682,21 @@
     }
 
     #instagram-videos-{{ section.id }} .ig-modal {
-      padding: 12px;
-    }
-
-    #instagram-videos-{{ section.id }} .ig-modal__dialog {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      max-height: 94vh;
-    }
-
-    #instagram-videos-{{ section.id }} .ig-modal__video {
-      flex: 0 0 auto;
-      height: 54vh;
-      min-height: 220px;
-      max-height: 58vh;
-    }
-
-    #instagram-videos-{{ section.id }} .ig-modal__video video {
-      height: 100%;
-      max-height: 58vh;
+      --ig-h: min(86vh, calc(94vw * 16 / 9));
     }
 
     #instagram-videos-{{ section.id }} .ig-modal__nav {
-      top: 27%;
-      width: 36px;
-      height: 36px;
+      display: none;
     }
 
-    #instagram-videos-{{ section.id }} .ig-modal__nav--next {
-      left: auto;
+    #instagram-videos-{{ section.id }} .ig-modal__close {
+      top: 10px;
       right: 10px;
     }
 
-    #instagram-videos-{{ section.id }} .ig-modal__info {
-      padding: 20px;
-    }
-
-    #instagram-videos-{{ section.id }} .ig-modal__details h3 {
-      font-size: 19px;
+    #instagram-videos-{{ section.id }} .ig-modal__sound {
+      right: auto;
+      left: 10px;
     }
   }
 </style>
@@ -551,15 +709,55 @@
 
     const modal = root.querySelector('[data-ig-modal]');
     const modalVideo = root.querySelector('[data-ig-modal-video]');
+    const sidePrev = root.querySelector('[data-ig-side-prev]');
+    const sideNext = root.querySelector('[data-ig-side-next]');
+    const progressEl = root.querySelector('[data-ig-progress]');
+    const soundBtn = root.querySelector('[data-ig-sound]');
     const titleEl = root.querySelector('[data-ig-title]');
-    const descriptionEl = root.querySelector('[data-ig-description]');
     const priceEl = root.querySelector('[data-ig-price]');
     const compareEl = root.querySelector('[data-ig-compare]');
+    const badgeEl = root.querySelector('[data-ig-badge]');
+    const thumbEl = root.querySelector('[data-ig-thumb]');
     const linkEl = root.querySelector('[data-ig-link]');
+    const productLinkEl = root.querySelector('[data-ig-product-link]');
     const cards = Array.from(root.querySelectorAll('[data-ig-card]'));
+
+    const PLAY_ICON =
+      '<span class="ig-modal__side-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10-6.5z"/></svg></span>';
 
     let currentIndex = 0;
     let previousFocus = null;
+    let soundOn = false;
+
+    function setSoundState(on) {
+      soundOn = on;
+      modal.classList.toggle('is-unmuted', on);
+      const v = modalVideo.querySelector('video');
+      if (v) v.muted = !on;
+    }
+
+    function buildSide(container, index) {
+      container.replaceChildren();
+      if (cards.length < 2) return;
+
+      const card = cards[(index + cards.length) % cards.length];
+      const video = card.querySelector('video');
+      const image = card.querySelector('.ig-card__thumbnail');
+
+      if (video) {
+        const clone = video.cloneNode(true);
+        clone.muted = true;
+        clone.loop = true;
+        clone.controls = false;
+        clone.setAttribute('playsinline', '');
+        container.appendChild(clone);
+        clone.play().catch(() => {});
+      } else if (image) {
+        container.appendChild(image.cloneNode(true));
+      }
+
+      container.insertAdjacentHTML('beforeend', PLAY_ICON);
+    }
 
     function updateModal(index) {
       if (!cards.length) return;
@@ -570,39 +768,65 @@
       const thumbnail = card.querySelector('.ig-card__thumbnail');
 
       modalVideo.replaceChildren();
+      progressEl.style.width = '0%';
 
       if (sourceVideo) {
         const video = sourceVideo.cloneNode(true);
         video.removeAttribute('autoplay');
-        video.controls = true;
+        video.controls = false;
         video.loop = true;
-        video.muted = false;
+        video.muted = !soundOn;
         video.playsInline = true;
         video.setAttribute('playsinline', '');
-        video.setAttribute('preload', 'metadata');
+        video.setAttribute('preload', 'auto');
         modalVideo.appendChild(video);
 
+        video.addEventListener('timeupdate', () => {
+          if (video.duration) {
+            progressEl.style.width = (video.currentTime / video.duration) * 100 + '%';
+          }
+        });
+
+        video.addEventListener('click', () => {
+          if (video.paused) video.play().catch(() => {});
+          else video.pause();
+        });
+
         video.play().catch(() => {
-          // User can start playback with the video controls.
+          // Unmuted autoplay blocked: fall back to muted
+          video.muted = true;
+          setSoundState(false);
+          video.play().catch(() => {});
         });
       } else if (thumbnail) {
-        const image = thumbnail.cloneNode(true);
-        image.style.width = '100%';
-        image.style.height = '100%';
-        image.style.objectFit = 'contain';
-        modalVideo.appendChild(image);
+        modalVideo.appendChild(thumbnail.cloneNode(true));
       }
 
       titleEl.textContent = card.dataset.title || '';
-      descriptionEl.textContent = card.dataset.description || '';
       priceEl.textContent = card.dataset.price || '';
       compareEl.textContent = card.dataset.compare || '';
       compareEl.hidden = !card.dataset.compare;
-      linkEl.href = card.dataset.url || '#';
+      badgeEl.textContent = card.dataset.discount || '';
+
+      if (card.dataset.image) {
+        thumbEl.src = card.dataset.image;
+        thumbEl.alt = card.dataset.title || '';
+      } else {
+        thumbEl.removeAttribute('src');
+      }
+
+      const url = card.dataset.url || '#';
+      linkEl.href = url;
+      productLinkEl.href = url;
+
+      buildSide(sidePrev, currentIndex - 1);
+      buildSide(sideNext, currentIndex + 1);
     }
 
     function openModal(index) {
       previousFocus = document.activeElement;
+      soundOn = false;
+      modal.classList.remove('is-unmuted');
       updateModal(index);
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
@@ -613,11 +837,13 @@
     function closeModal() {
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
-      modalVideo.querySelectorAll('video').forEach((video) => {
+      modal.querySelectorAll('video').forEach((video) => {
         video.pause();
         video.removeAttribute('src');
       });
       modalVideo.replaceChildren();
+      sidePrev.replaceChildren();
+      sideNext.replaceChildren();
       document.body.style.overflow = '';
       if (previousFocus) previousFocus.focus();
     }
@@ -629,9 +855,7 @@
         video.muted = true;
         video.defaultMuted = true;
         video.playsInline = true;
-        video.play().catch(() => {
-          // Browser autoplay policies may prevent playback.
-        });
+        video.play().catch(() => {});
       }
 
       card.querySelector('[data-ig-open]').addEventListener('click', () => {
@@ -643,12 +867,21 @@
       button.addEventListener('click', closeModal);
     });
 
-    modal.querySelector('[data-ig-prev]').addEventListener('click', () => {
-      updateModal(currentIndex - 1);
-    });
+    modal.querySelector('[data-ig-prev]').addEventListener('click', () => updateModal(currentIndex - 1));
+    modal.querySelector('[data-ig-next]').addEventListener('click', () => updateModal(currentIndex + 1));
+    sidePrev.addEventListener('click', () => updateModal(currentIndex - 1));
+    sideNext.addEventListener('click', () => updateModal(currentIndex + 1));
 
-    modal.querySelector('[data-ig-next]').addEventListener('click', () => {
-      updateModal(currentIndex + 1);
+    soundBtn.addEventListener('click', () => setSoundState(!soundOn));
+
+    // Swipe support (mobile)
+    let touchStartX = 0;
+    modalVideo.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    modalVideo.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 60) updateModal(currentIndex + (dx < 0 ? 1 : -1));
     });
 
     document.addEventListener('keydown', (event) => {
@@ -736,9 +969,9 @@
         },
         {
           "type": "text",
-          "id": "discount",
-          "label": "Discount badge",
-          "default": "30% OFF"
+          "id": "discount_override",
+          "label": "Discount badge (optional)",
+          "info": "Khali chhodo to product ke compare-at price se automatic % OFF dikhega. Kuch likhoge to wahi dikhega."
         },
         {
           "type": "text",
@@ -755,7 +988,7 @@
       ]
     }
   ],
-  "max_blocks": 20,
+  "max_blocks": 30,
   "presets": [
     {
       "name": "Instagram Product Videos",
