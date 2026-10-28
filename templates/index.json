@@ -1903,10 +1903,10 @@
         "mobile_slider_height": 450,
         "image_fit": "cover",
         "autoplay": true,
-        "autoplay_speed": 4,
-        "show_pagination": true,
+        "autoplay_speed": 3,
+        "show_pagination": false,
         "show_arrows": false,
-        "mousewheel": false
+        "mousewheel": true
       }
     },
     "product_list_GG4Yxg": {
