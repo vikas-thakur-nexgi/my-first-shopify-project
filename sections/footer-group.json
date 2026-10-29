@@ -237,7 +237,7 @@
         "divider_thickness": 1,
         "divider_color": "{{ settings.color_palette.color2 }}",
         "padding-block-start": 20,
-        "padding-block-end": 48
+        "padding-block-end": 30
       }
     }
   },
