@@ -8,7 +8,9 @@
       {% if section.settings.shop_menu != blank %}
         <ul>
           {% for link in section.settings.shop_menu.links %}
-            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            <li>
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            </li>
           {% endfor %}
         </ul>
       {% endif %}
@@ -20,7 +22,9 @@
       {% if section.settings.manage_menu != blank %}
         <ul>
           {% for link in section.settings.manage_menu.links %}
-            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            <li>
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            </li>
           {% endfor %}
         </ul>
       {% endif %}
@@ -32,7 +36,9 @@
       {% if section.settings.info_menu != blank %}
         <ul>
           {% for link in section.settings.info_menu.links %}
-            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            <li>
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            </li>
           {% endfor %}
         </ul>
       {% endif %}
@@ -42,21 +48,25 @@
     <div class="ww-footer__column ww-footer__contact">
       <h3>{{ section.settings.contact_heading | escape }}</h3>
 
-      <p class="ww-footer__address">
-        {% comment %} <strong>{{ section.settings.company_name | escape }}</strong> {% endcomment %}
-        {% if section.settings.company_address != blank %}
+      {% if section.settings.company_address != blank %}
+        <p class="ww-footer__address">
           {{ section.settings.company_address | escape | newline_to_br }}
-        {% endif %}
-      </p>
-
-      {% if section.settings.gstin != blank %}
-        <p>GSTIN: {{ section.settings.gstin | escape }}</p>
+        </p>
       {% endif %}
 
+      {% if section.settings.gstin != blank %}
+        <p>
+          GSTIN: {{ section.settings.gstin | escape }}
+        </p>
+      {% endif %}
+
+      <!-- Customer Support -->
       <div class="ww-footer__support">
         <h3>{{ section.settings.support_heading | escape }}</h3>
+
         {% if section.settings.phone != blank %}
-          <p>Call / WhatsApp:
+          <p>
+            Call / WhatsApp:
             <a href="https://wa.me/{{ section.settings.phone | remove: '+' | remove: ' ' | remove: '-' }}">
               {{ section.settings.phone | escape }}
             </a>
@@ -64,7 +74,8 @@
         {% endif %}
 
         {% if section.settings.email != blank %}
-          <p>Email:
+          <p>
+            Email:
             <a href="mailto:{{ section.settings.email | escape }}">
               {{ section.settings.email | escape }}
             </a>
@@ -72,6 +83,7 @@
         {% endif %}
       </div>
 
+      <!-- Support Hours -->
       <div class="ww-footer__hours">
         <h3>{{ section.settings.hours_heading | escape }}</h3>
         <p>{{ section.settings.support_days | escape }}</p>
@@ -83,28 +95,45 @@
 </footer>
 
 <style>
+  /* ==============================
+     BASE FOOTER STYLES
+  ============================== */
+
   #ww-footer-{{ section.id }} {
     background: {{ section.settings.background_color }};
     color: {{ section.settings.text_color }};
-    {% comment %} padding: 68px 0 60px; {% endcomment %}
     font-size: 14px;
     line-height: 1.55;
+    padding: 0;
   }
 
   #ww-footer-{{ section.id }} * {
     box-sizing: border-box;
   }
 
+  /* ==============================
+     DESKTOP: 4 COLUMNS
+     1025px and above
+  ============================== */
+
   #ww-footer-{{ section.id }} .ww-footer__container {
     width: calc(100% - 90px);
     max-width: 1440px;
     margin: 0 auto;
+
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 40px;
+
     padding-top: 55px;
     padding-bottom: 55px;
+
     border-bottom: 1px solid {{ section.settings.border_color }};
+  }
+
+  #ww-footer-{{ section.id }} .ww-footer__column {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   #ww-footer-{{ section.id }} h3 {
@@ -157,31 +186,46 @@
     margin-bottom: 2px;
   }
 
-  @media screen and (max-width: 749px) {
-    #ww-footer-{{ section.id }} {
-      padding: 40px 0 30px;
-    }
+  /* ==============================
+     TABLET: 2 COLUMNS
+     750px to 1024px
+  ============================== */
 
+  @media screen and (min-width: 750px) and (max-width: 1024px) {
     #ww-footer-{{ section.id }} .ww-footer__container {
-      width: calc(100% - 40px);
+      width: calc(100% - 60px);
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 32px 20px;
-      padding-bottom: 30px;
+      gap: 35px 30px;
+      padding-top: 45px;
+      padding-bottom: 45px;
     }
 
-    #ww-footer-{{ section.id }} .ww-footer__contact {
-      grid-column: 1 / -1;
+    #ww-footer-{{ section.id }} .ww-footer__column {
+      min-width: 0;
     }
   }
 
-  @media screen and (max-width: 420px) {
+  /* ==============================
+     MOBILE: 1 COLUMN
+     749px and below
+  ============================== */
+
+  @media screen and (max-width: 749px) {
     #ww-footer-{{ section.id }} .ww-footer__container {
-      grid-template-columns: 1fr;
+      width: calc(100% - 40px);
+      grid-template-columns: minmax(0, 1fr);
       gap: 26px;
+      padding-top: 35px;
+      padding-bottom: 30px;
     }
 
-    #ww-footer-{{ section.id }} .ww-footer__contact {
-      grid-column: auto;
+    #ww-footer-{{ section.id }} .ww-footer__column {
+      width: 100%;
+      min-width: 0;
+    }
+
+    #ww-footer-{{ section.id }} h3 {
+      margin-bottom: 12px;
     }
   }
 </style>
