@@ -1907,17 +1907,17 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 /* Shopify Slideshow - Center 2nd Slide */
-slideshow-slides > slideshow-slide:nth-child(2) {
+#shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides > slideshow-slide:nth-child(2) {
     order: -1;
 }
 
 /* Slide container alignment */
-slideshow-slides {
+#shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides {
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
 }
 
-slideshow-slides > slideshow-slide:nth-child(2) {
+#shopify-section-template--27948148031807__slideshow_kaF3QN slideshow-slides > slideshow-slide:nth-child(2) {
     scroll-snap-align: center;
 }
 
