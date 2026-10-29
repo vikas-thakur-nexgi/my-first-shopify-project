@@ -232,7 +232,7 @@
       "name": "t:names.utilities",
       "settings": {
         "section_width": "page-width",
-        "gap": 24,
+        "gap": 10,
         "background_color": "{{ settings.color_palette.background }}",
         "divider_thickness": 1,
         "divider_color": "{{ settings.color_palette.color2 }}",
