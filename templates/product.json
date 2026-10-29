@@ -789,7 +789,7 @@
               "type": "text",
               "name": "t:names.header",
               "settings": {
-                "text": "<p>Discover elevated design </p>",
+                "text": "<h3>Know Your Fabric</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -890,8 +890,9 @@
                 "text_gj9jLq": {
                   "type": "text",
                   "name": "t:names.heading",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Artistry in action </p>",
+                    "text": "<p>Artistry in action&nbsp;</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -916,6 +917,7 @@
                 "text_fUmHK6": {
                   "type": "text",
                   "name": "t:names.text",
+                  "disabled": true,
                   "settings": {
                     "text": "<p>Bold style that's recognizable anywhere</p>",
                     "width": "fit-content",
@@ -946,7 +948,7 @@
                 "text_fUmHK6"
               ]
             },
-            "card_3apF3T": {
+            "card_TMxBRB": {
               "type": "_card",
               "name": "t:names.card",
               "settings": {
@@ -975,7 +977,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "image_xN6raL": {
+                "image_VyPTXx": {
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
@@ -998,11 +1000,12 @@
                   },
                   "blocks": {}
                 },
-                "text_pBU4nx": {
+                "text_hBXJh8": {
                   "type": "text",
                   "name": "t:names.heading",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Uncompromising standards </p>",
+                    "text": "<p>Artistry in action&nbsp;</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1024,11 +1027,12 @@
                   },
                   "blocks": {}
                 },
-                "text_wkQhta": {
+                "text_Kjp9HE": {
                   "type": "text",
                   "name": "t:names.text",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Expert construction and an impeccable finish</p>",
+                    "text": "<p>Bold style that's recognizable anywhere</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1052,12 +1056,12 @@
                 }
               },
               "block_order": [
-                "image_xN6raL",
-                "text_pBU4nx",
-                "text_wkQhta"
+                "image_VyPTXx",
+                "text_hBXJh8",
+                "text_Kjp9HE"
               ]
             },
-            "card_rRiMX9": {
+            "card_eGpgbW": {
               "type": "_card",
               "name": "t:names.card",
               "settings": {
@@ -1086,7 +1090,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "image_VRfNPY": {
+                "image_MR4T9R": {
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
@@ -1109,11 +1113,12 @@
                   },
                   "blocks": {}
                 },
-                "text_wjaVm9": {
+                "text_yrj49G": {
                   "type": "text",
                   "name": "t:names.heading",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Made to last </p>",
+                    "text": "<p>Artistry in action&nbsp;</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1135,11 +1140,12 @@
                   },
                   "blocks": {}
                 },
-                "text_8N7xem": {
+                "text_hFt9iH": {
                   "type": "text",
                   "name": "t:names.text",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Pieces that only get better with time and wear </p>",
+                    "text": "<p>Bold style that's recognizable anywhere</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1163,12 +1169,12 @@
                 }
               },
               "block_order": [
-                "image_VRfNPY",
-                "text_wjaVm9",
-                "text_8N7xem"
+                "image_MR4T9R",
+                "text_yrj49G",
+                "text_hFt9iH"
               ]
             },
-            "card_TCEyig": {
+            "card_bN8zqH": {
               "type": "_card",
               "name": "t:names.card",
               "settings": {
@@ -1197,7 +1203,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "image_RczTrd": {
+                "image_bQEAaN": {
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
@@ -1220,11 +1226,12 @@
                   },
                   "blocks": {}
                 },
-                "text_ChfDQM": {
+                "text_F8HPTF": {
                   "type": "text",
                   "name": "t:names.heading",
+                  "disabled": true,
                   "settings": {
-                    "text": "<h2>Quality you can feel</h2>",
+                    "text": "<p>Artistry in action&nbsp;</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1246,11 +1253,12 @@
                   },
                   "blocks": {}
                 },
-                "text_GbAz9E": {
+                "text_mWyPNb": {
                   "type": "text",
                   "name": "t:names.text",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Authentic materials, no compromises </p>",
+                    "text": "<p>Bold style that's recognizable anywhere</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1274,12 +1282,12 @@
                 }
               },
               "block_order": [
-                "image_RczTrd",
-                "text_ChfDQM",
-                "text_GbAz9E"
+                "image_bQEAaN",
+                "text_F8HPTF",
+                "text_mWyPNb"
               ]
             },
-            "card_fyhY4p": {
+            "card_zteMND": {
               "type": "_card",
               "name": "t:names.card",
               "settings": {
@@ -1308,7 +1316,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "image_cUpcEU": {
+                "image_bXggY6": {
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
@@ -1331,11 +1339,12 @@
                   },
                   "blocks": {}
                 },
-                "text_ApebB9": {
+                "text_hfUbrX": {
                   "type": "text",
                   "name": "t:names.heading",
+                  "disabled": true,
                   "settings": {
-                    "text": "<h2>Quality you can feel</h2>",
+                    "text": "<p>Artistry in action&nbsp;</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1357,11 +1366,12 @@
                   },
                   "blocks": {}
                 },
-                "text_7HtNJq": {
+                "text_tH3t6p": {
                   "type": "text",
                   "name": "t:names.text",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Authentic materials, no compromises </p>",
+                    "text": "<p>Bold style that's recognizable anywhere</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1385,12 +1395,12 @@
                 }
               },
               "block_order": [
-                "image_cUpcEU",
-                "text_ApebB9",
-                "text_7HtNJq"
+                "image_bXggY6",
+                "text_hfUbrX",
+                "text_tH3t6p"
               ]
             },
-            "card_gnhyyH": {
+            "card_mcGXFx": {
               "type": "_card",
               "name": "t:names.card",
               "settings": {
@@ -1419,7 +1429,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "image_ndJ3WU": {
+                "image_6w6Jda": {
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
@@ -1442,11 +1452,12 @@
                   },
                   "blocks": {}
                 },
-                "text_x3T7Qr": {
+                "text_ApEJJw": {
                   "type": "text",
                   "name": "t:names.heading",
+                  "disabled": true,
                   "settings": {
-                    "text": "<h2>Quality you can feel</h2>",
+                    "text": "<p>Artistry in action&nbsp;</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1468,11 +1479,12 @@
                   },
                   "blocks": {}
                 },
-                "text_t8Arat": {
+                "text_Ak6c8c": {
                   "type": "text",
                   "name": "t:names.text",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Authentic materials, no compromises </p>",
+                    "text": "<p>Bold style that's recognizable anywhere</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1496,12 +1508,12 @@
                 }
               },
               "block_order": [
-                "image_ndJ3WU",
-                "text_x3T7Qr",
-                "text_t8Arat"
+                "image_6w6Jda",
+                "text_ApEJJw",
+                "text_Ak6c8c"
               ]
             },
-            "card_preq9n": {
+            "card_D4mDUb": {
               "type": "_card",
               "name": "t:names.card",
               "settings": {
@@ -1530,7 +1542,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "image_id6jBP": {
+                "image_i3gL8B": {
                   "type": "image",
                   "name": "t:names.image",
                   "settings": {
@@ -1553,11 +1565,12 @@
                   },
                   "blocks": {}
                 },
-                "text_BMNKP7": {
+                "text_fVFFtK": {
                   "type": "text",
                   "name": "t:names.heading",
+                  "disabled": true,
                   "settings": {
-                    "text": "<h2>Quality you can feel</h2>",
+                    "text": "<p>Artistry in action&nbsp;</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1579,11 +1592,12 @@
                   },
                   "blocks": {}
                 },
-                "text_zEk4W7": {
+                "text_7nA86i": {
                   "type": "text",
                   "name": "t:names.text",
+                  "disabled": true,
                   "settings": {
-                    "text": "<p>Authentic materials, no compromises </p>",
+                    "text": "<p>Bold style that's recognizable anywhere</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1607,20 +1621,134 @@
                 }
               },
               "block_order": [
-                "image_id6jBP",
-                "text_BMNKP7",
-                "text_zEk4W7"
+                "image_i3gL8B",
+                "text_fVFFtK",
+                "text_7nA86i"
+              ]
+            },
+            "card_LYjHwV": {
+              "type": "_card",
+              "name": "t:names.card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "background_media": "none",
+                "background_color": "",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "aspect_ratio": "adapt",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_FHry3G": {
+                  "type": "image",
+                  "name": "t:names.image",
+                  "settings": {
+                    "link": "",
+                    "image_ratio": "adapt",
+                    "width": "fill",
+                    "custom_width": 100,
+                    "width_mobile": "fill",
+                    "custom_width_mobile": 100,
+                    "height": "fit",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_color": "",
+                    "border_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_yMf7Hp": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "disabled": true,
+                  "settings": {
+                    "text": "<p>Artistry in action&nbsp;</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h5",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_wfwT9A": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "disabled": true,
+                  "settings": {
+                    "text": "<p>Bold style that's recognizable anywhere</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "image_FHry3G",
+                "text_yMf7Hp",
+                "text_wfwT9A"
               ]
             }
           },
           "block_order": [
             "card_NzfbPc",
-            "card_3apF3T",
-            "card_rRiMX9",
-            "card_TCEyig",
-            "card_fyhY4p",
-            "card_gnhyyH",
-            "card_preq9n"
+            "card_TMxBRB",
+            "card_eGpgbW",
+            "card_bN8zqH",
+            "card_zteMND",
+            "card_mcGXFx",
+            "card_D4mDUb",
+            "card_LYjHwV"
           ]
         }
       },
@@ -1654,7 +1782,7 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h3>You may also like </h3>",
+            "text": "<h3>You may also like&nbsp;</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
